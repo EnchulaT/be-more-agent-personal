@@ -1,5 +1,5 @@
 {
-  "text_model": "qwen2.5:1.5b",
+  "text_model": "granite4:micro",
   "vision_model": "moondream",
   "voice_model": "piper/en_GB-semaine-medium.onnx",
   "chat_memory": true,
@@ -8,7 +8,7 @@
   "system_prompt_extras": "You are a helpful robot assistant. Keep responses short and cute.",
   "input_device": null,
   "input_sample_rate": 44100,
-  "silence_threshold": 0.5,
+  "silence_threshold": 0.0006,
   "silence_duration": 2.0,
   "noise_calibration_seconds": 0.25,
   "stt_model": "./whisper.cpp/models/ggml-small.bin",

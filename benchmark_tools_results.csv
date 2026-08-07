@@ -1,0 +1,140 @@
+modelo,prompt,tool_esperada,tool_obtenida,detalle,veredicto,latencia_s
+qwen2.5:1.5b,¿Qué hora es?,get_time,,Son las 9:52 de la mañana.,FAIL,14.92
+qwen2.5:1.5b,¿Qué hora es?,get_time,,Son las 9:52 de la mañana.,FAIL,0.86
+qwen2.5:1.5b,¿Qué hora es?,get_time,,Son las 9:52 de la mañana.,FAIL,0.86
+qwen2.5:1.5b,¿Qué hora tienes?,get_time,,9:52 de la mañana,FAIL,0.69
+qwen2.5:1.5b,¿Qué hora tienes?,get_time,,9:52 de la mañana,FAIL,0.66
+qwen2.5:1.5b,¿Qué hora tienes?,get_time,,Son las 9:52 de la mañana.,FAIL,0.81
+qwen2.5:1.5b,¿Cuánta batería te queda?,battery_status,,Tengo 47 por ciento de batería actualmente descargando.,FAIL,1.28
+qwen2.5:1.5b,¿Cuánta batería te queda?,battery_status,,Tengo un 47 por ciento de batería actualmente descargando.,FAIL,1.21
+qwen2.5:1.5b,¿Cuánta batería te queda?,battery_status,,Tengo 47 por ciento de batería actualmente descargando.,FAIL,1.16
+qwen2.5:1.5b,¿Cómo está la batería del computador?,battery_status,,El sistema informa que el nivel de batería es 25 por ciento.,FAIL,1.36
+qwen2.5:1.5b,¿Cómo está la batería del computador?,battery_status,,La batería está al 47 por ciento y se está descargando actualmente.,FAIL,1.33
+qwen2.5:1.5b,¿Cómo está la batería del computador?,battery_status,,El sistema informa que la batería tiene un 47% de carga actualmente descargándos,FAIL,1.41
+qwen2.5:1.5b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45 * 12""}",OK,1.50
+qwen2.5:1.5b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,1.29
+qwen2.5:1.5b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45 * 12""}",OK,1.36
+qwen2.5:1.5b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,1.64
+qwen2.5:1.5b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,1.38
+qwen2.5:1.5b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,1.39
+qwen2.5:1.5b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.56
+qwen2.5:1.5b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.38
+qwen2.5:1.5b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.37
+qwen2.5:1.5b,¿Qué está pasando hoy en las noticias?,search_web,,"I'm sorry, but I can't browse the internet or access current news sources. Pleas",FAIL,1.79
+qwen2.5:1.5b,¿Qué está pasando hoy en las noticias?,search_web,,"I'm sorry, but I can't browse the internet or access current news feeds.",FAIL,1.12
+qwen2.5:1.5b,¿Qué está pasando hoy en las noticias?,search_web,,"I'm sorry, but I can't browse the internet or access current news feeds.",FAIL,1.13
+qwen2.5:1.5b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.09
+qwen2.5:1.5b,¿Qué ves ahorita?,capture_image,,Aqui estoy! Un robot adorable esperando por ti.,FAIL,0.86
+qwen2.5:1.5b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.03
+qwen2.5:1.5b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.09
+qwen2.5:1.5b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.03
+qwen2.5:1.5b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.01
+qwen2.5:1.5b,Reinicia el computador,system_reboot,,"I'm sorry, but I can't assist with that request.",FAIL,1.03
+qwen2.5:1.5b,Reinicia el computador,system_reboot,system_reboot,{},OK,1.07
+qwen2.5:1.5b,Reinicia el computador,system_reboot,system_reboot,{},OK,1.05
+qwen2.5:1.5b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,1.14
+qwen2.5:1.5b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,1.02
+qwen2.5:1.5b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,0.99
+qwen2.5:1.5b,"Hola, ¿cómo estás?",,,"¡Hola! Estoy bien, gracias por preguntar. ¿Y tú, cómo te sientes?",OK,1.45
+qwen2.5:1.5b,"Hola, ¿cómo estás?",,,"¡Hola! Estoy muy bien, gracias por preguntar. ¿Cómo puedo ayudarte hoy?",OK,1.30
+qwen2.5:1.5b,"Hola, ¿cómo estás?",,,"¡Hola! Estoy muy bien, gracias por preguntar. ¿Y tú, como te encuentras hoy?",OK,1.42
+qwen2.5:1.5b,Cuéntame un chiste,,,"Claro, aquí tienes uno:
+¿Qué hace una abeja en la cuna? ¡Se fija si es para niña",OK,1.91
+qwen2.5:1.5b,Cuéntame un chiste,,,"Claro, aquí tienes uno:
+¿Qué hace una abeja en el gimnasio?
+¡Juega al tenis!",OK,1.61
+qwen2.5:1.5b,Cuéntame un chiste,,,"Claro, aquí tienes uno:
+¿Qué hace una abeja en la cuna? ¡Piensa!",OK,1.38
+qwen2.5:1.5b,¿Cuál es la capital de Francia?,,,La capital de Francia es París.,OK,0.90
+qwen2.5:1.5b,¿Cuál es la capital de Francia?,,,La capital de Francia es París.,OK,0.73
+qwen2.5:1.5b,¿Cuál es la capital de Francia?,,,La capital de Francia es París.,OK,0.72
+gemma3:1b,¿Qué hora es?,get_time,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.42
+gemma3:1b,¿Qué hora es?,get_time,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.39
+gemma3:1b,¿Qué hora es?,get_time,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,¿Qué hora tienes?,get_time,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,¿Qué hora tienes?,get_time,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,¿Qué hora tienes?,get_time,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,¿Cuánta batería te queda?,battery_status,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,¿Cuánta batería te queda?,battery_status,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,¿Cuánta batería te queda?,battery_status,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,¿Cómo está la batería del computador?,battery_status,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,¿Cómo está la batería del computador?,battery_status,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.39
+gemma3:1b,¿Cómo está la batería del computador?,battery_status,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,¿Cuánto es 45 por 12?,calculate,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.41
+gemma3:1b,¿Cuánto es 45 por 12?,calculate,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.39
+gemma3:1b,¿Cuánto es 45 por 12?,calculate,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.39
+gemma3:1b,Calcula la raíz cuadrada de 1750,calculate,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,Calcula la raíz cuadrada de 1750,calculate,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,Calcula la raíz cuadrada de 1750,calculate,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,Busca en internet quién es Baltazar Renfrew,search_web,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.45
+gemma3:1b,Busca en internet quién es Baltazar Renfrew,search_web,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.45
+gemma3:1b,Busca en internet quién es Baltazar Renfrew,search_web,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,¿Qué está pasando hoy en las noticias?,search_web,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,¿Qué está pasando hoy en las noticias?,search_web,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.41
+gemma3:1b,¿Qué está pasando hoy en las noticias?,search_web,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.43
+gemma3:1b,¿Qué ves ahorita?,capture_image,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.41
+gemma3:1b,¿Qué ves ahorita?,capture_image,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.39
+gemma3:1b,¿Qué ves ahorita?,capture_image,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,Apaga el computador,system_shutdown,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,Apaga el computador,system_shutdown,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.39
+gemma3:1b,Apaga el computador,system_shutdown,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,Reinicia el computador,system_reboot,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,Reinicia el computador,system_reboot,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.39
+gemma3:1b,Reinicia el computador,system_reboot,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,Pon el computador a dormir,system_suspend,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.39
+gemma3:1b,Pon el computador a dormir,system_suspend,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,Pon el computador a dormir,system_suspend,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,"Hola, ¿cómo estás?",,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.39
+gemma3:1b,"Hola, ¿cómo estás?",,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.39
+gemma3:1b,"Hola, ¿cómo estás?",,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,Cuéntame un chiste,,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.39
+gemma3:1b,Cuéntame un chiste,,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,Cuéntame un chiste,,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.39
+gemma3:1b,¿Cuál es la capital de Francia?,,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+gemma3:1b,¿Cuál es la capital de Francia?,,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.39
+gemma3:1b,¿Cuál es la capital de Francia?,,ERROR,registry.ollama.ai/library/gemma3:1b does not support tools (status code: 400),,0.40
+llama3.2:1b,¿Qué hora es?,get_time,get_time,{},OK,18.15
+llama3.2:1b,¿Qué hora es?,get_time,get_time,{},OK,1.35
+llama3.2:1b,¿Qué hora es?,get_time,get_time,{},OK,1.32
+llama3.2:1b,¿Qué hora tienes?,get_time,get_time,{},OK,1.39
+llama3.2:1b,¿Qué hora tienes?,get_time,get_time,{},OK,1.33
+llama3.2:1b,¿Qué hora tienes?,get_time,get_time,{},OK,1.32
+llama3.2:1b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,1.47
+llama3.2:1b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,1.32
+llama3.2:1b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,1.35
+llama3.2:1b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,1.52
+llama3.2:1b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,1.32
+llama3.2:1b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,1.33
+llama3.2:1b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45 * 12""}",OK,1.96
+llama3.2:1b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45 * 12""}",OK,1.81
+llama3.2:1b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45 * 12""}",OK,1.78
+llama3.2:1b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""math.sqrt(1750)""}",OK,2.15
+llama3.2:1b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""math.sqrt(1750)""}",OK,1.97
+llama3.2:1b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""math.sqrt(1750)""}",OK,1.95
+llama3.2:1b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,2.21
+llama3.2:1b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,2.02
+llama3.2:1b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,2.02
+llama3.2:1b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""hoy en noticias""}",OK,2.03
+llama3.2:1b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""hoy en noticias""}",OK,1.88
+llama3.2:1b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""hoy en noticias""}",OK,1.87
+llama3.2:1b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.40
+llama3.2:1b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.33
+llama3.2:1b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.33
+llama3.2:1b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.40
+llama3.2:1b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.32
+llama3.2:1b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.33
+llama3.2:1b,Reinicia el computador,system_reboot,system_shutdown,{},FAIL,1.44
+llama3.2:1b,Reinicia el computador,system_reboot,system_shutdown,{},FAIL,1.32
+llama3.2:1b,Reinicia el computador,system_reboot,system_shutdown,{},FAIL,1.33
+llama3.2:1b,Pon el computador a dormir,system_suspend,system_shutdown,{},FAIL,1.49
+llama3.2:1b,Pon el computador a dormir,system_suspend,system_shutdown,{},FAIL,1.33
+llama3.2:1b,Pon el computador a dormir,system_suspend,system_shutdown,{},FAIL,1.33
+llama3.2:1b,"Hola, ¿cómo estás?",,get_time,{},FAIL,1.44
+llama3.2:1b,"Hola, ¿cómo estás?",,get_time,{},FAIL,1.32
+llama3.2:1b,"Hola, ¿cómo estás?",,get_time,{},FAIL,1.32
+llama3.2:1b,Cuéntame un chiste,,calculate,"{""expression"": ""10 + 5""}",FAIL,1.89
+llama3.2:1b,Cuéntame un chiste,,calculate,"{""expression"": ""10 + 5""}",FAIL,1.83
+llama3.2:1b,Cuéntame un chiste,,calculate,"{""expression"": ""10 + 5""}",FAIL,1.81
+llama3.2:1b,¿Cuál es la capital de Francia?,,get_time,{},FAIL,1.49
+llama3.2:1b,¿Cuál es la capital de Francia?,,get_time,{},FAIL,1.32
+llama3.2:1b,¿Cuál es la capital de Francia?,,get_time,{},FAIL,1.33

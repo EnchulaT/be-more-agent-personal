@@ -455,27 +455,26 @@ TOOLS = [
 # model was pattern-matching onto a broken, half-finished exchange instead
 # of a real one.
 TOOL_FEW_SHOT = [
-    {"role": "user", "content": "What time is it?"},
+    {"role": "user", "content": "¿Qué hora es?"},
     {"role": "assistant", "content": "", "tool_calls": [
         {"function": {"name": "get_time", "arguments": {}}}
     ]},
-    {"role": "tool", "content": "TIME_RESULT::The current time is 14:00."},
-    {"role": "assistant", "content": "The current time is 14:00."},
+    {"role": "tool", "content": "TIME_RESULT::Son las 9:52 de la mañana."},
 
-    {"role": "user", "content": "How much battery do you have left?"},
+    {"role": "user", "content": "¿Cuánta batería te queda?"},
     {"role": "assistant", "content": "", "tool_calls": [
         {"function": {"name": "battery_status", "arguments": {}}}
     ]},
-    {"role": "tool", "content": "BATTERY_RESULT::Battery is at 80 percent."},
-    {"role": "assistant", "content": "Battery is at 80 percent."},
+    {"role": "tool", "content": "BATTERY_RESULT::La batería está al 47 por ciento, actualmente descargando."},
 
-    {"role": "user", "content": "Search the web for who Baltazar Renfrew is"},
+    {"role": "user", "content": "Busca en internet quién es Baltazar Renfrew"},
     {"role": "assistant", "content": "", "tool_calls": [
         {"function": {"name": "search_web", "arguments": {"query": "Baltazar Renfrew"}}}
     ]},
-    {"role": "tool", "content": "No results found for Baltazar Renfrew."},
-    {"role": "assistant", "content": "I searched, but I couldn't find anything about Baltazar Renfrew."},
+    {"role": "tool", "content": "No se encontraron resultados para Baltazar Renfrew."},
+    {"role": "assistant", "content": "Busqué, pero no encontré nada sobre Baltazar Renfrew."},
 ]
+
 
 # Sound Directories
 greeting_sounds_dir = "sounds/greeting_sounds"
