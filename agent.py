@@ -1208,9 +1208,40 @@ class BotGUI:
     def warm_up_logic(self):
         self.set_state(BotStates.WARMUP, "Calentando el cerebro...")
         try:
-            ollama.generate(model=TEXT_MODEL, prompt="", keep_alive=-1)
+            # ollama.generate(prompt="") solo carga los pesos en memoria --
+            # con prompt vacío no hay ningún forward pass real, así que
+            # nunca ejercita el camino de cómputo real (en este equipo,
+            # sobre la iGPU vía Vulkan). Eso dejaba la compilación de
+            # shaders/kernels de la PRIMERA llamada real para la primera
+            # pregunta del usuario: 35-36s medidos en logs [TIMING] reales
+            # (dos sesiones distintas), contra 1.6-3.4s en todas las
+            # llamadas siguientes -- el mismo fenómeno de "primer load" que
+            # ya documentamos para whisper-server (ver
+            # WHISPER_SERVER_STARTUP_TIMEOUT más arriba), pero sin cubrirlo
+            # aquí.
+            #
+            # Fix: calentar con una llamada REPRESENTATIVA de la real --
+            # mismo system prompt + TOOL_FEW_SHOT + tools=TOOLS + las
+            # mismas OLLAMA_OPTIONS_ROUTE que usa chat_and_respond() -- y
+            # descartar la respuesta. El único propósito es pagar ese costo
+            # de compilación aquí, durante "Calentando el cerebro" (donde
+            # ya estás esperando de todas formas), en vez de en la primera
+            # pregunta real.
+            warmup_messages = [
+                {"role": "system", "content": SYSTEM_PROMPT},
+                *TOOL_FEW_SHOT,
+                {"role": "user", "content": "Hola"},
+            ]
+            with step_timer(f"Warmup LLM, llamada real (tools, {TEXT_MODEL})"):
+                ollama_chat_safe(
+                    model=TEXT_MODEL,
+                    messages=warmup_messages,
+                    tools=TOOLS,
+                    stream=False,
+                    options=OLLAMA_OPTIONS_ROUTE,
+                )
         except Exception as e:
-            print(f"Failed to load {TEXT_MODEL}: {e}", flush=True)
+            print(f"Failed to warm up {TEXT_MODEL}: {e}", flush=True)
         self._start_whisper_server()
         self.play_sound(self.get_random_sound(greeting_sounds_dir))
         print("Models loaded.", flush=True)
