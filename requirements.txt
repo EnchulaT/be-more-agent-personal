@@ -1,8 +1,8 @@
 sounddevice
-numpy
+numpy<2.5
 scipy
 openwakeword
 onnxruntime
 ollama
-duckduckgo-search
+ddgs
 Pillow

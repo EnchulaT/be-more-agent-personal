@@ -1,3 +1,4 @@
+
 {
   "text_model": "qwen2.5:1.5b",
   "vision_model": "moondream",
@@ -7,11 +8,8 @@
   "system_prompt_extras": "You are a helpful robot assistant. Keep responses short and cute.",
   "input_device": null,
   "input_sample_rate": 44100,
-  "silence_threshold": 0.5,
-  "silence_duration": 2.0,
-  "noise_calibration_seconds": 0.25,
-  "stt_model": "./whisper.cpp/models/ggml-small.bin",
-  "stt_language": "es",
-  "stt_initial_prompt": "BMO, Cali, Valle del Cauca, Universidad del Valle, Raspberry Pi, iPod, WhatsApp.",
+  "silence_threshold": 0.006,
+  "silence_duration": 0.5,
+  
   "max_record_time": 15.0
 }

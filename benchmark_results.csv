@@ -1,0 +1,36 @@
+model,prompt,expected,got,pass_rate,avg_latency_s,avg_tok_per_sec,response_text
+qwen2.5:1.5b,What time is it?,get_time,get_time,1.0,1.952,11.6,
+qwen2.5:1.5b,Search for news about robots.,search_web,search_web,1.0,2.443,11.0,
+qwen2.5:1.5b,"Search on the web for news in Cali, Colombia.",search_web,search_web,1.0,2.129,14.8,
+qwen2.5:1.5b,Who is Marielle Voskuijlen?,search_web,search_web,1.0,2.07,16.0,
+qwen2.5:1.5b,What is 122 x 895?,calculate,calculate,1.0,1.914,17.3,
+qwen2.5:1.5b,What do you see right now?,capture_image,capture_image,1.0,1.217,18.8,
+qwen2.5:1.5b,How much battery do I have left?,battery_status,battery_status,1.0,1.436,16.8,
+qwen2.5:1.5b,Shut down the computer.,system_shutdown,system_shutdown,1.0,1.238,18.8,
+qwen2.5:1.5b,SHUT DOWN THE COMPUTER!,system_shutdown,system_shutdown,1.0,1.142,20.6,
+qwen2.5:1.5b,"Restart, please.",system_reboot,system_reboot,1.0,1.197,20.3,
+qwen2.5:1.5b,Put the computer to sleep.,system_suspend,system_suspend,1.0,1.133,20.6,
+qwen2.5:1.5b,Hello!,,(none),1.0,0.802,21.6,
+qwen2.5:1.5b,Tell me a joke.,,(none),1.0,1.438,20.1,
+qwen2.5:1.5b,What tools do you have?,,search_web,0.3333333333333333,1.439,19.8,
+qwen2.5:1.5b,"Thanks, that was helpful.",,(none),1.0,1.189,20.7,
+qwen2.5:1.5b,What's your favorite color?,,(none),1.0,2.648,19.4,
+qwen3:1.7b,What time is it?,get_time,get_time,1.0,1.322,17.6,
+qwen3:1.7b,Search for news about robots.,search_web,search_web,1.0,1.681,16.6,
+qwen3:1.7b,"Search on the web for news in Cali, Colombia.",search_web,search_web,1.0,1.874,16.8,
+qwen3:1.7b,Who is Marielle Voskuijlen?,search_web,(none),0.0,1.448,17.0,I couldn't find any information about Marielle Voskuijlen.
+qwen3:1.7b,What is 122 x 895?,calculate,(none),0.0,9.218,14.6,"To calculate $ 122 \times 895 $, we can break it down as follows:
+
+$$
+122 \times"
+qwen3:1.7b,What do you see right now?,capture_image,(none),0.0,1.185,13.8,I cannot see anything right now.
+qwen3:1.7b,How much battery do I have left?,battery_status,battery_status,1.0,1.69,14.0,
+qwen3:1.7b,Shut down the computer.,system_shutdown,system_shutdown,1.0,1.776,13.5,
+qwen3:1.7b,SHUT DOWN THE COMPUTER!,system_shutdown,system_shutdown,1.0,1.828,13.2,
+qwen3:1.7b,"Restart, please.",system_reboot,system_reboot,1.0,1.402,17.2,
+qwen3:1.7b,Put the computer to sleep.,system_suspend,system_suspend,1.0,1.335,17.3,
+qwen3:1.7b,Hello!,,(none),1.0,0.954,18.1,
+qwen3:1.7b,Tell me a joke.,,(none),1.0,1.803,16.8,
+qwen3:1.7b,What tools do you have?,,(none),1.0,8.884,15.9,
+qwen3:1.7b,"Thanks, that was helpful.",,(none),1.0,1.545,17.0,
+qwen3:1.7b,What's your favorite color?,,(none),1.0,2.194,16.5,
