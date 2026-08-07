@@ -476,6 +476,46 @@ TOOL_FEW_SHOT = [
     {"role": "assistant", "content": "Busqué, pero no encontré nada sobre Baltazar Renfrew."},
 ]
 
+# --- MODEL-SPECIFIC "THINKING" OVERRIDE ---
+# benchmark_models.py detectó que algunos modelos de Ollama (familia qwen3,
+# granite3.1-moe, etc.) traen "thinking" activado por defecto y, si no se
+# fuerza think=False explícitamente, la latencia se dispara (se llegó a
+# medir hasta 68s en un solo turno). Esa lógica (get_model_config) vivía
+# SOLO en el harness de benchmark y nunca se portó al agente real: ninguna
+# de las llamadas a ollama.chat() de más abajo pasaba `think=`. Si algún
+# día cambias text_model en config.json a un modelo de una de estas
+# familias, este bloque es lo que evita repetir el mismo blowup en
+# producción. Agrega el substring aquí si detectas el mismo síntoma
+# (primer token muy lento, sin contenido de razonamiento visible) en un
+# modelo nuevo.
+THINKING_MODEL_HINTS = ("qwen3", "granite3.1-moe")
+
+
+def get_think_override(model_name):
+    """None = no tocar `think` (dejar que el modelo/servidor decida).
+    False = forzar think=False porque este modelo lo necesita."""
+    lower = (model_name or "").lower()
+    if any(hint in lower for hint in THINKING_MODEL_HINTS):
+        return False
+    return None
+
+
+def ollama_chat_safe(**kwargs):
+    """Wrapper delgado sobre ollama.chat() que agrega `think=` solo cuando
+    el modelo activo lo necesita (ver THINKING_MODEL_HINTS), y se degrada
+    con gracia si el paquete `ollama` instalado es demasiado viejo para
+    aceptar ese kwarg (TypeError en vez de ignorarlo silenciosamente) —
+    mismo fallback que ya se validó en benchmark_models.py."""
+    think = get_think_override(kwargs.get("model", ""))
+    if think is None:
+        return ollama.chat(**kwargs)
+    kwargs["think"] = think
+    try:
+        return ollama.chat(**kwargs)
+    except TypeError:
+        kwargs.pop("think", None)
+        return ollama.chat(**kwargs)
+
 
 # Sound Directories
 greeting_sounds_dir = "sounds/greeting_sounds"
@@ -1569,7 +1609,7 @@ class BotGUI:
             response = None
             if self.tools_supported:
                 try:
-                    response = ollama.chat(
+                    response = ollama_chat_safe(
                         model=model_to_use,
                         messages=messages,
                         tools=TOOLS,
@@ -1595,7 +1635,7 @@ class BotGUI:
                 # found out — either way, degrade to a plain chat call so
                 # the user still gets a spoken reply instead of silence
                 # or a repeated crash.
-                response = ollama.chat(
+                response = ollama_chat_safe(
                     model=model_to_use,
                     messages=messages,
                     stream=False,
@@ -1689,7 +1729,7 @@ class BotGUI:
                 self.set_state(BotStates.THINKING, "Leyendo...")
                 self.thinking_sound_active.set()
 
-                final_resp = ollama.chat(model=model_to_use, messages=summary_prompt, stream=False, options=OLLAMA_OPTIONS_CHAT)
+                final_resp = ollama_chat_safe(model=model_to_use, messages=summary_prompt, stream=False, options=OLLAMA_OPTIONS_CHAT)
                 final_text = final_resp['message']['content']
                 self._say(final_text, img_path=img_path)
 
