@@ -9,6 +9,29 @@ This project turns a Raspberry Pi into a fully functional, conversational AI age
 
 **It is designed as a blank canvas:** You can easily swap the face images and sound effects to create your own character!
 
+> ## ⚠️ Estado real de este fork (leer antes que el resto del README)
+>
+> Todo lo de abajo (hardware, instalación, modelos) describe la versión
+> **original para Raspberry Pi** del proyecto upstream. Este fork corre en
+> otra máquina y varias cosas ya no aplican tal cual:
+>
+> | | README original (abajo) | Este fork, en la práctica |
+> |---|---|---|
+> | Hardware | Raspberry Pi 5/4 + LCD + cámara Pi | Laptop: i5-12500H, 24GB RAM, iGPU Intel Iris Xe (sin GPU dedicada) |
+> | SO | Raspberry Pi OS (apt) | Arch Linux (pacman) |
+> | Captura de cámara | `rpicam-still` | `cv2.VideoCapture` (V4L2) vía `opencv-python-headless` |
+> | STT | whisper.cpp, backend CPU | whisper.cpp, backend **Vulkan** en la Iris Xe |
+> | `text_model` | `gemma3:1b` / `gemma:2b` (según qué parte del README) | ver `text_model` en `config.json` — validado con benchmark, no asumir |
+> | `setup.sh` | Instala dependencias de Pi (`apt`, Piper aarch64, `gemma3:1b`) | **No usarlo tal cual en Arch** — sirve como referencia, no como instalador |
+>
+> `agent.py` y `config.json` del repo son la fuente de verdad, no esta
+> tabla ni el resto del README — ambos pueden volver a quedar desactualizados
+> si el setup sigue cambiando.
+>
+> `benchmark_models.py` / `benchmark_tools.py` / `benchmark_whisper.py`
+> tienen los resultados medidos (precisión y latencia) por modelo en
+> `benchmark_results.csv` / `benchmark_tools_results.csv`.
+
 ## ✨ Features
 
 * **100% Local Intelligence**: Powered by **Ollama** (LLM) and **Whisper.cpp** (Speech-to-Text). No API fees, no cloud data usage.
