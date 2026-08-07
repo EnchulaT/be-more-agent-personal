@@ -8,37 +8,25 @@ env/
 venv/
 .env
 
-# --- Large Models & Binaries (Auto-downloaded) ---
-# Ignore the Piper TTS folder (it's huge and OS-specific)
+# --- Binarios específicos de arquitectura (se compilan/descargan por máquina) ---
+whisper.cpp/build/
 piper/
 
-# Ignore large model files
-*.onnx
-*.bin
-*.tflite
+# --- Pesos del modelo STT (466MB+, supera el límite de 100MB de GitHub) ---
+whisper.cpp/models/*.bin
 
-# Exception: Un-comment the line below if you WANT to share your custom wake word
-# !wakeword.onnx
-
-# --- User Configuration & Memory ---
-# Keep chat history local (Privacy)
+# --- Config/memoria privada o específica de esta máquina ---
 memory.json
 chat_memory.json
+config.json.save
 
-# Keep personal API keys or settings local
-# (Optional: comment this out if you WANT to share your config)
-# config.json
-
-# --- Temporary/Generated Media ---
-*.wav
-*.mp3
-*.jpg
-*.png
+# --- Archivos temporales generados en runtime ---
+input.wav
+test_audio.wav
 camera_capture.jpg
 current_image.jpg
-test_audio.wav
 
-# --- OS Generated Files ---
+# --- Archivos de SO ---
 .DS_Store
 Thumbs.db
 ehthumbs.db
