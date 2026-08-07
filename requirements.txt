@@ -6,3 +6,4 @@ onnxruntime
 ollama
 ddgs
 Pillow
+opencv-python-headless

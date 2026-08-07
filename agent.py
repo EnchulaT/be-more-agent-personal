@@ -37,6 +37,8 @@ warnings.filterwarnings("ignore", category=RuntimeWarning, module="ddgs")
 import sounddevice as sd
 import numpy as np
 import scipy.signal 
+import cv2  # Captura de cámara genérica (V4L2) — reemplaza rpicam-still,
+            # que es exclusivo de Raspberry Pi OS / libcamera.
 
 # --- AI ENGINES ---
 import openwakeword
@@ -64,6 +66,13 @@ DEFAULT_CONFIG = {
     "vision_model": "moondream",
     "voice_model": "piper/en_GB-semaine-medium.onnx",
     "chat_memory": True,
+    # Pi-era default assumed a dedicated small LCD run in kiosk mode. On a
+    # normal desktop (with a WM you also use for everything else) forcing
+    # fullscreen just leaves a huge empty/grey area around the 800x480
+    # face, since the canvas itself is never resized to match. Default is
+    # a normal, fixed-size window; set to true if you ever drive this from
+    # a dedicated small screen again.
+    "fullscreen": False,
     "camera_rotation": 0,
     "system_prompt_extras": "",
     "input_device": None,
@@ -92,6 +101,17 @@ DEFAULT_CONFIG = {
     "noise_calibration_seconds": 0.25
 }
 
+# --- HARDWARE-ADAPTIVE THREAD COUNTS ---
+# The upstream project hardcoded num_thread=4 and "-t 4" everywhere, tuned
+# for a 4-core Raspberry Pi with nothing else running. On a 12-core/16-thread
+# machine that leaves most of the CPU idle during inference, so derive both
+# from os.cpu_count() instead. OLLAMA_NUM_THREAD leaves a few threads free
+# for the GUI thread, the audio callback, openWakeWord inference, and the
+# Piper/whisper subprocesses that can run concurrently with an Ollama call.
+_CPU_COUNT = os.cpu_count() or 4
+OLLAMA_NUM_THREAD = max(4, _CPU_COUNT - 4)
+WHISPER_NUM_THREAD = max(4, min(8, _CPU_COUNT))
+
 # LLM SETTINGS
 # Two option sets on purpose: the tool-decision call ("should I call a tool,
 # and with what arguments?") wants low temperature — this is exactly what
@@ -100,7 +120,7 @@ DEFAULT_CONFIG = {
 # chat/summary options stay warmer for natural-sounding spoken replies.
 OLLAMA_OPTIONS_ROUTE = {
     'keep_alive': '-1',
-    'num_thread': 4,
+    'num_thread': OLLAMA_NUM_THREAD,
     'temperature': 0.3,
     'top_k': 40,
     'top_p': 0.9
@@ -108,7 +128,7 @@ OLLAMA_OPTIONS_ROUTE = {
 
 OLLAMA_OPTIONS_CHAT = {
     'keep_alive': '-1',
-    'num_thread': 4,
+    'num_thread': OLLAMA_NUM_THREAD,
     'temperature': 0.7,
     'top_k': 40,
     'top_p': 0.9
@@ -246,7 +266,7 @@ class BotStates:
 # parameter (see TOOLS below); the model either returns a structured
 # `tool_calls` entry or plain text. Free-text JSON examples used to actively
 # confuse small models once real tool-calling was enabled, so they are gone.
-BASE_SYSTEM_PROMPT = """You are a helpful robot assistant running on a Raspberry Pi.
+BASE_SYSTEM_PROMPT = """You are a helpful robot assistant running on a personal computer.
 Personality: Cute, helpful, robot.
 Style: Short sentences. Enthusiastic.
 
@@ -474,7 +494,15 @@ class BotGUI:
     def __init__(self, master):
         self.master = master
         master.title("Pi Assistant")
-        master.attributes('-fullscreen', True) 
+        self.fullscreen_enabled = bool(CURRENT_CONFIG.get("fullscreen", False))
+        if self.fullscreen_enabled:
+            master.attributes('-fullscreen', True)
+        else:
+            # Windowed at the assets' native size instead of fullscreen —
+            # see the "fullscreen" comment in DEFAULT_CONFIG. Plays nicely
+            # with a tiling WM: it's just one more normal-sized window.
+            master.geometry(f"{self.BG_WIDTH}x{self.BG_HEIGHT}")
+            master.resizable(False, False)
         master.bind('<Escape>', self.exit_fullscreen)
         
         # Inputs
@@ -504,6 +532,10 @@ class BotGUI:
         self.tts_active = threading.Event()
         self.current_audio_process = None 
         self.exiting = False
+
+        # Cached index of the working /dev/video* node for capture_image()
+        # (see _grab_camera_frame). None means "not probed yet".
+        self._camera_index = None
 
         # Pending confirmation for destructive system actions
         # (shutdown / reboot / suspend). Set by chat_and_respond() when the
@@ -624,7 +656,8 @@ class BotGUI:
             pass
         
     def exit_fullscreen(self, event=None):
-        self.master.attributes('-fullscreen', False)
+        if self.fullscreen_enabled:
+            self.master.attributes('-fullscreen', False)
         self.safe_exit()
 
     def toggle_hud_visibility(self, event=None):
@@ -1086,8 +1119,8 @@ class BotGUI:
         # and letting portaudio manage the buffering, OR very small chunks.
         
         # Let's try to be less aggressive with reads.
-        
-         with sd.InputStream(**stream_args) as stream:
+
+        with sd.InputStream(**stream_args) as stream:
                 print(f"[AUDIO] Listening with rate {stream_args['samplerate']} and block {stream_args['blocksize']}", flush=True)
                 
                 # Pre-allocate buffer for speed
@@ -1284,7 +1317,7 @@ class BotGUI:
 
         try:
             cmd = [
-                "./whisper.cpp/build/bin/whisper-cli", "-m", stt_model, "-t", "4", "-f", filename,
+                "./whisper.cpp/build/bin/whisper-cli", "-m", stt_model, "-t", str(WHISPER_NUM_THREAD), "-f", filename,
                 # Suppress non-speech tokens (e.g. the "[Música]"/
                 # "[BLANK_AUDIO]" tags whisper emits on silence or noise) at
                 # the source, instead of only catching them afterwards in
@@ -1313,15 +1346,57 @@ class BotGUI:
             print(f"Transcription Error: {e}")
             return ""
 
+    def _grab_camera_frame(self):
+        """Generic V4L2 capture (replaces rpicam-still, which only exists on
+        Raspberry Pi OS/libcamera). Many UVC webcams expose more than one
+        /dev/video* node (one real capture node, one metadata-only node), so
+        this probes indices instead of assuming 0. The last working index is
+        cached and tried first; if it ever stops working (camera unplugged/
+        replugged into a different node) it falls back to a full re-probe
+        automatically."""
+        candidates = list(range(5))
+        if self._camera_index is not None and self._camera_index in candidates:
+            candidates.remove(self._camera_index)
+            candidates.insert(0, self._camera_index)
+
+        for idx in candidates:
+            cap = cv2.VideoCapture(idx, cv2.CAP_V4L2)
+            if not cap.isOpened():
+                cap.release()
+                continue
+            cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+            cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+
+            frame = None
+            # Discard the first few frames: auto-exposure/auto-white-balance
+            # on most UVC webcams hasn't settled yet and the very first
+            # frame often comes back black or blown out.
+            for _ in range(5):
+                ok, frame = cap.read()
+                if not ok:
+                    frame = None
+                    break
+            cap.release()
+
+            if frame is not None:
+                self._camera_index = idx
+                return frame
+
+        self._camera_index = None
+        return None
+
     def capture_image(self):
         self.set_state(BotStates.CAPTURING, "Watching...")
         try:
-            subprocess.run(["rpicam-still", "-t", "500", "-n", "--width", "640", "--height", "480", "-o", BMO_IMAGE_FILE], check=True)
+            frame = self._grab_camera_frame()
+            if frame is None:
+                print("Camera Error: no /dev/video* device returned a usable frame", flush=True)
+                return None
+            img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
             rotation = CURRENT_CONFIG.get("camera_rotation", 0)
             if rotation != 0:
-                img = Image.open(BMO_IMAGE_FILE)
                 img = img.rotate(rotation, expand=True) 
-                img.save(BMO_IMAGE_FILE)
+            img.save(BMO_IMAGE_FILE)
             return BMO_IMAGE_FILE
         except Exception as e:
             print(f"Camera Error: {e}")
