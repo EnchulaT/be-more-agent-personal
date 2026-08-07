@@ -18,7 +18,7 @@ whisper.cpp/models/*.bin
 # --- Config/memoria privada o específica de esta máquina ---
 memory.json
 chat_memory.json
-config.json.save
+config.json.save*
 
 # --- Archivos temporales generados en runtime ---
 input.wav
