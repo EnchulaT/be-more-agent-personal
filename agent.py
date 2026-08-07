@@ -21,6 +21,7 @@ import os
 import subprocess
 import random
 import re
+import unicodedata
 import sys
 import select
 import traceback
@@ -999,6 +1000,16 @@ class BotGUI:
                     f"user session doesn't have polkit permission to run "
                     f"'{' '.join(cmd)}' without a password.")
 
+    # Stock phrases whisper.cpp hallucinates on silence/near-silent audio
+    # (trained on YouTube data, so this is its go-to filler). These show up
+    # verbatim when the mic captures mostly dead air, e.g. while waiting on
+    # a confirmation reply — treat them as if nothing was heard at all.
+    _WHISPER_HALLUCINATIONS = {
+        "suscribete", "suscribete al canal", "suscribanse",
+        "gracias por ver", "gracias por ver el video",
+        "like y suscribete", "no olvides suscribirte",
+    }
+
     @staticmethod
     def _is_junk_transcription(text):
         """Filters common whisper.cpp non-speech artifacts ([Música],
@@ -1013,6 +1024,15 @@ class BotGUI:
         if re.fullmatch(r"[\[\(].*[\]\)]?", stripped):
             return True
         alnum = re.sub(r"[^\w]", "", stripped, flags=re.UNICODE)
+        normalized = unicodedata.normalize("NFKD", alnum.lower())
+        normalized = "".join(c for c in normalized if not unicodedata.combining(c))
+        if normalized in BotGUI._WHISPER_HALLUCINATIONS:
+            return True
+        # Short answers like "sí"/"no" are valid despite being under the
+        # general junk-length threshold below — don't let a 2-letter reply
+        # get discarded as noise.
+        if normalized in {"si", "no", "ok"}:
+            return False
         return len(alnum) < 3
 
     @staticmethod
@@ -1039,13 +1059,26 @@ class BotGUI:
             self.tts_thread.start()
             
             while True:
-                trigger_source = self.detect_wake_word_or_ptt()
-                if trigger_source == "EXIT" or self.exiting:
-                    break
-                if self.interrupted.is_set():
-                    self.interrupted.clear()
-                    self.set_state(BotStates.IDLE, "Reiniciando...")
-                    continue
+                awaiting_confirmation = (
+                    self.pending_confirmation is not None
+                    and time.time() < self.pending_confirmation_expiry
+                )
+
+                if awaiting_confirmation:
+                    if self.exiting:
+                        break
+                    # Skip the wake word entirely: we just asked a yes/no
+                    # question, so go straight back to listening for the
+                    # reply instead of making the user say "bmo" again.
+                    trigger_source = "CONFIRM"
+                else:
+                    trigger_source = self.detect_wake_word_or_ptt()
+                    if trigger_source == "EXIT" or self.exiting:
+                        break
+                    if self.interrupted.is_set():
+                        self.interrupted.clear()
+                        self.set_state(BotStates.IDLE, "Reiniciando...")
+                        continue
 
                 self.set_state(BotStates.LISTENING, "¡Te escucho!")
                 

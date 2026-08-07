@@ -1,7 +1,7 @@
 {
   "text_model": "granite4:micro",
   "vision_model": "moondream",
-  "voice_model": "piper/en_GB-semaine-medium.onnx",
+  "voice_model": "piper/es_MX-claude-high.onnx",
   "chat_memory": true,
   "fullscreen": false,
   "camera_rotation": 0,
