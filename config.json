@@ -9,7 +9,7 @@
   "input_device": null,
   "input_sample_rate": 44100,
   "silence_threshold": 0.0006,
-  "silence_duration": 2.0,
+  "silence_duration": 0.6,
   "noise_calibration_seconds": 0.25,
   "stt_model": "./whisper.cpp/models/ggml-large-v3-turbo.bin",
   "stt_language": "es",

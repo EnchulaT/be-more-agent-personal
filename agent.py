@@ -39,6 +39,14 @@ warnings.filterwarnings("ignore", category=RuntimeWarning, module="ddgs")
 import sounddevice as sd
 import numpy as np
 import scipy.signal 
+try:
+    # Solo se usa para hablar con whisper-server (STT persistente, ver
+    # WHISPER_SERVER_BIN más abajo). Si no está instalado, el agente cae de
+    # vuelta a whisper-cli por turno automáticamente -- no es dependencia
+    # dura.
+    import requests
+except ImportError:
+    requests = None
 import cv2  # Captura de cámara genérica (V4L2) — reemplaza rpicam-still,
             # que es exclusivo de Raspberry Pi OS / libcamera.
 
@@ -113,6 +121,35 @@ DEFAULT_CONFIG = {
 _CPU_COUNT = os.cpu_count() or 4
 OLLAMA_NUM_THREAD = max(4, _CPU_COUNT - 4)
 WHISPER_NUM_THREAD = max(4, min(8, _CPU_COUNT))
+
+# --- WHISPER SERVER (STT persistente) ---
+# transcribe_audio() lanzaba whisper-cli como subprocess NUEVO en cada turno,
+# lo que recarga el modelo ggml completo desde disco cada vez. Con
+# ggml-base.bin (~140MB) ese costo ya se sentía; con ggml-large-v3-turbo.bin
+# (~1.5GB, el modelo activo en config.json desde el cambio de ago-2026) es
+# casi seguro el mayor cuello de botella de todo el pipeline -- se paga el
+# reload completo en CADA turno, no solo una vez.
+#
+# whisper.cpp trae un servidor HTTP (examples/server) que carga el modelo
+# una sola vez y responde por /inference sin recargar -- mismo principio que
+# ya usa Ollama vía keep_alive=-1 más abajo. warm_up_logic() lo levanta al
+# arrancar (dentro del estado "Calentando el cerebro", antes de la primera
+# frase) y transcribe_audio() le pega por HTTP en vez de spawnear whisper-cli.
+#
+# Requiere compilar un target extra que whisper-cli ya no incluye por
+# defecto en todos los setups de CMake:
+#     cmake --build whisper.cpp/build --config Release -j --target whisper-server
+# Si el binario no existe (o `requests` no está instalado), el agente NO se
+# rompe: se degrada en silencio a whisper-cli por turno, igual que antes de
+# este cambio.
+WHISPER_SERVER_BIN = "./whisper.cpp/build/bin/whisper-server"
+WHISPER_SERVER_PUBLIC_DIR = "./whisper.cpp/examples/server/public"
+WHISPER_SERVER_HOST = "127.0.0.1"
+WHISPER_SERVER_PORT = 8178
+# large-v3-turbo por Vulkan en la Iris Xe puede tardar bastante en el primer
+# load (compilación de shaders incluida) -- generoso a propósito porque solo
+# se paga una vez, al arrancar, nunca por turno.
+WHISPER_SERVER_STARTUP_TIMEOUT = 45.0
 
 # LLM SETTINGS
 # Two option sets on purpose: the tool-decision call ("should I call a tool,
@@ -588,6 +625,12 @@ class BotGUI:
         self.current_audio_process = None 
         self.exiting = False
 
+        # whisper-server persistente (ver WHISPER_SERVER_BIN). None/False
+        # hasta que warm_up_logic() lo levante con éxito; transcribe_audio()
+        # cae a whisper-cli por turno mientras tanto.
+        self.whisper_server_proc = None
+        self.whisper_server_ready = False
+
         # Cached index of the working /dev/video* node for capture_image()
         # (see _grab_camera_frame). None means "not probed yet".
         self._camera_index = None
@@ -691,6 +734,8 @@ class BotGUI:
                 self.current_audio_process.terminate()
                 self.current_audio_process.wait(timeout=1)
             except: pass
+
+        self._stop_whisper_server()
 
         self.recording_active.clear()
         self.thinking_sound_active.clear()
@@ -1166,8 +1211,100 @@ class BotGUI:
             ollama.generate(model=TEXT_MODEL, prompt="", keep_alive=-1)
         except Exception as e:
             print(f"Failed to load {TEXT_MODEL}: {e}", flush=True)
+        self._start_whisper_server()
         self.play_sound(self.get_random_sound(greeting_sounds_dir))
         print("Models loaded.", flush=True)
+
+    def _start_whisper_server(self):
+        """Levanta whisper-server una sola vez (ver comentario junto a
+        WHISPER_SERVER_BIN). Cualquier fallo aquí deja whisper_server_ready
+        en False y transcribe_audio() sigue funcionando con whisper-cli por
+        turno -- este método nunca debe poder tumbar el arranque del agente."""
+        if requests is None:
+            print(
+                "[STT] Paquete 'requests' no instalado -- whisper-server "
+                "desactivado, usando whisper-cli por turno. "
+                "Instálalo con: pip install requests --break-system-packages",
+                flush=True,
+            )
+            return
+
+        if not os.path.exists(WHISPER_SERVER_BIN):
+            print(
+                f"[STT] whisper-server no encontrado en '{WHISPER_SERVER_BIN}' -- "
+                f"usando whisper-cli por turno (recarga el modelo cada vez; "
+                f"notorio con modelos grandes como large-v3-turbo). Para "
+                f"activarlo, compila el target que falta: "
+                f"cmake --build whisper.cpp/build --config Release -j --target whisper-server",
+                flush=True,
+            )
+            return
+
+        stt_model = CURRENT_CONFIG.get("stt_model", "./whisper.cpp/models/ggml-base.bin")
+        if not os.path.exists(stt_model):
+            return  # transcribe_audio ya reporta este error con detalle
+
+        stt_language = CURRENT_CONFIG.get("stt_language", "es")
+        stt_initial_prompt = CURRENT_CONFIG.get("stt_initial_prompt", "")
+
+        cmd = [
+            WHISPER_SERVER_BIN,
+            "-m", stt_model,
+            "-t", str(WHISPER_NUM_THREAD),
+            "-sns",  # suprime tokens no-verbales, igual que whisper-cli antes
+            "--host", WHISPER_SERVER_HOST,
+            "--port", str(WHISPER_SERVER_PORT),
+            "--public", WHISPER_SERVER_PUBLIC_DIR,
+        ]
+        if stt_language and stt_language.lower() != "auto":
+            cmd.extend(["-l", stt_language])
+        if stt_initial_prompt:
+            cmd.extend(["--prompt", stt_initial_prompt])
+
+        try:
+            with step_timer(f"Arranque whisper-server ({os.path.basename(stt_model)})"):
+                self.whisper_server_proc = subprocess.Popen(
+                    cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                )
+                health_url = f"http://{WHISPER_SERVER_HOST}:{WHISPER_SERVER_PORT}/health"
+                deadline = time.time() + WHISPER_SERVER_STARTUP_TIMEOUT
+                while time.time() < deadline:
+                    if self.whisper_server_proc.poll() is not None:
+                        break  # el proceso murió al iniciar (puerto ocupado, modelo inválido...)
+                    try:
+                        if requests.get(health_url, timeout=0.5).ok:
+                            self.whisper_server_ready = True
+                            break
+                    except requests.exceptions.RequestException:
+                        pass
+                    time.sleep(0.3)
+        except Exception as e:
+            print(f"[STT] No se pudo iniciar whisper-server: {e}", flush=True)
+            self.whisper_server_proc = None
+
+        if self.whisper_server_ready:
+            print(
+                f"[STT] whisper-server listo en {WHISPER_SERVER_HOST}:"
+                f"{WHISPER_SERVER_PORT} -- modelo cargado una sola vez para "
+                f"toda la sesión.",
+                flush=True,
+            )
+        else:
+            print("[STT] whisper-server no respondió a tiempo -- usando whisper-cli por turno.", flush=True)
+            self._stop_whisper_server()
+
+    def _stop_whisper_server(self):
+        if self.whisper_server_proc:
+            try:
+                self.whisper_server_proc.terminate()
+                self.whisper_server_proc.wait(timeout=2)
+            except Exception:
+                try:
+                    self.whisper_server_proc.kill()
+                except Exception:
+                    pass
+        self.whisper_server_proc = None
+        self.whisper_server_ready = False
 
     def detect_wake_word_or_ptt(self):
         self.set_state(BotStates.IDLE, "Esperando...")
@@ -1303,7 +1440,12 @@ class BotGUI:
 
     def record_voice_adaptive(self, filename="input.wav"):
         print("Recording (Adaptive)...", flush=True)
-        time.sleep(0.5) 
+        # 0.5s heredado de la era Raspberry Pi ("hardware contention causes
+        # freezes" en los comentarios originales de sd.stop() más abajo).
+        # Bajado a 0.15s para esta laptop (sin esa contención conocida) --
+        # si notas cortes o congelamientos de audio al empezar a grabar,
+        # esto es lo primero que hay que subir de vuelta.
+        time.sleep(0.15)
         samplerate = choose_input_samplerate(INPUT_DEVICE_NAME, CURRENT_CONFIG.get("input_sample_rate"))
 
         configured_threshold = CURRENT_CONFIG.get("silence_threshold", 0.006)
@@ -1356,7 +1498,7 @@ class BotGUI:
             with step_timer("Grabación (adaptativa)"):
                 # Explicitly close stream if it exists to free hardware
                 sd.stop()
-                time.sleep(0.2)
+                time.sleep(0.05)  # bajado de 0.2s, mismo motivo que arriba
 
                 with sd.InputStream(samplerate=samplerate, channels=1, callback=callback,
                                     device=INPUT_DEVICE_NAME, blocksize=chunk_size):
@@ -1372,7 +1514,7 @@ class BotGUI:
 
     def record_voice_ptt(self, filename="input.wav"):
         print("Recording (PTT)...", flush=True)
-        time.sleep(0.5)
+        time.sleep(0.15)  # ver comentario en record_voice_adaptive
         samplerate = choose_input_samplerate(INPUT_DEVICE_NAME, CURRENT_CONFIG.get("input_sample_rate"))
 
         buffer = []
@@ -1382,7 +1524,7 @@ class BotGUI:
             # Explicitly close stream if it exists to free hardware
             # This is critical on Pi 5 where hardware contention causes freezes
             sd.stop() 
-            time.sleep(0.2)
+            time.sleep(0.05)  # bajado de 0.2s -- ver comentario en record_voice_adaptive
             
             with sd.InputStream(samplerate=samplerate, channels=1, callback=callback, device=INPUT_DEVICE_NAME):
                 while self.recording_active.is_set(): 
@@ -1426,6 +1568,19 @@ class BotGUI:
 
         stt_initial_prompt = CURRENT_CONFIG.get("stt_initial_prompt", "")
 
+        if self.whisper_server_ready:
+            transcription = self._transcribe_via_server(filename, stt_language, stt_initial_prompt)
+            if transcription is not None:
+                print(f"Heard: '{transcription}'", flush=True)
+                return transcription.strip()
+            # El server estaba arriba pero falló a media sesión (se cayó,
+            # timeout, etc.) -- cae a whisper-cli para este turno en vez de
+            # dejar al usuario sin respuesta. Se desactiva para el resto de
+            # la sesión: si murió una vez, insistir por turno solo agrega
+            # timeouts de 0.5s a cada intento.
+            print("[STT] whisper-server no respondió, usando whisper-cli para el resto de la sesión.", flush=True)
+            self.whisper_server_ready = False
+
         try:
             cmd = [
                 "./whisper.cpp/build/bin/whisper-cli", "-m", stt_model, "-t", str(WHISPER_NUM_THREAD), "-f", filename,
@@ -1444,7 +1599,7 @@ class BotGUI:
             # DEFAULT_CONFIG's comment) — free accuracy, no extra LLM call.
             if stt_initial_prompt:
                 cmd.extend(["--prompt", stt_initial_prompt])
-            with step_timer(f"Transcripción ({os.path.basename(stt_model)})"):
+            with step_timer(f"Transcripción, whisper-cli ({os.path.basename(stt_model)})"):
                 result = subprocess.run(cmd, capture_output=True, text=True)
             transcription_lines = result.stdout.strip().split('\n')
             if transcription_lines and transcription_lines[-1].strip():
@@ -1457,6 +1612,25 @@ class BotGUI:
         except Exception as e:
             print(f"Transcription Error: {e}")
             return ""
+
+    def _transcribe_via_server(self, filename, stt_language, stt_initial_prompt):
+        """POST a whisper-server /inference. Devuelve el texto, o None si el
+        server no respondió (transcribe_audio decide el fallback)."""
+        url = f"http://{WHISPER_SERVER_HOST}:{WHISPER_SERVER_PORT}/inference"
+        data = {"response_format": "json"}
+        if stt_language and stt_language.lower() != "auto":
+            data["language"] = stt_language
+        if stt_initial_prompt:
+            data["prompt"] = stt_initial_prompt
+        try:
+            with step_timer("Transcripción, whisper-server (modelo ya cargado)"):
+                with open(filename, "rb") as f:
+                    resp = requests.post(url, files={"file": f}, data=data, timeout=30)
+                resp.raise_for_status()
+                return resp.json().get("text", "")
+        except Exception as e:
+            print(f"[STT] Error consultando whisper-server: {e}", flush=True)
+            return None
 
     def _grab_camera_frame(self):
         """Generic V4L2 capture (replaces rpicam-still, which only exists on
@@ -1814,8 +1988,11 @@ class BotGUI:
                 with sd.RawOutputStream(samplerate=native_rate if use_native_rate else PIPER_RATE, 
                                         channels=1, dtype='int16', 
                                         device=None, latency='low', blocksize=2048) as stream:
+                    was_interrupted = False
                     while True:
-                        if self.interrupted.is_set(): break
+                        if self.interrupted.is_set():
+                            was_interrupted = True
+                            break
                         data = self.current_audio_process.stdout.read(4096)
                         if not data: break 
                     
@@ -1828,7 +2005,21 @@ class BotGUI:
                             stream.write(audio_chunk.tobytes())
                         else:
                             self.current_volume = 0
-                    time.sleep(0.5) 
+                    if not was_interrupted:
+                        # stream.write() puede devolver el control antes de
+                        # que el último bloque termine de sonar en el
+                        # hardware. Salir del `with` ahora llamaría a
+                        # close(), que -- si el stream sigue "activo" --
+                        # descarta ese resto como abort(), cortando la
+                        # última sílaba. stream.stop() bloquea solo lo que
+                        # falta (normalmente unas decenas de ms con
+                        # blocksize=2048), en vez del sleep(0.5) fijo que
+                        # había antes -- que sumaba hasta medio segundo
+                        # MUERTO por cada frase (varias por respuesta larga)
+                        # para cubrir ese mismo margen a ciegas. Si te
+                        # interrumpieron a media frase no queremos esperar
+                        # nada: por eso el `if not was_interrupted`.
+                        stream.stop()
                     
         except Exception as e:
             print(f"Audio Error: {e}")
