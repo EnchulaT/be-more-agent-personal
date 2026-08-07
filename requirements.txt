@@ -7,4 +7,3 @@ ollama
 ddgs
 Pillow
 opencv-python-headless
-opencv-python
