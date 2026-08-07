@@ -1,5 +1,5 @@
 {
-  "text_model": "granite4:micro",
+  "text_model": "granite4.1:3b",
   "vision_model": "moondream",
   "voice_model": "piper/es_MX-claude-high.onnx",
   "chat_memory": true,

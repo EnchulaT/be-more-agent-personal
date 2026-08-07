@@ -1,571 +1,236 @@
 modelo,prompt,tool_esperada,tool_obtenida,detalle,veredicto,latencia_s
-granite4:micro,¿Qué hora es?,get_time,get_time,{},OK,23.50
-granite4:micro,¿Qué hora es?,get_time,get_time,{},OK,1.38
-granite4:micro,¿Qué hora es?,get_time,get_time,{},OK,1.35
-granite4:micro,¿Qué hora tienes?,get_time,get_time,{},OK,1.48
-granite4:micro,¿Qué hora tienes?,get_time,get_time,{},OK,1.40
-granite4:micro,¿Qué hora tienes?,get_time,get_time,{},OK,1.33
-granite4:micro,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,1.67
-granite4:micro,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,1.36
-granite4:micro,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,1.35
-granite4:micro,¿Cómo está la batería del computador?,battery_status,,La batería está al 47 por ciento y actualmente descargando.,FAIL,1.92
-granite4:micro,¿Cómo está la batería del computador?,battery_status,,La batería está al 47 por ciento y actualmente descargando.,FAIL,1.56
-granite4:micro,¿Cómo está la batería del computador?,battery_status,,La batería está al 47 por ciento y actualmente descargando.,FAIL,1.57
-granite4:micro,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,2.03
-granite4:micro,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,1.65
-granite4:micro,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,1.64
-granite4:micro,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,2.20
-granite4:micro,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""**sqrt(1750)**""}",OK,1.89
-granite4:micro,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,1.83
-granite4:micro,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,2.39
-granite4:micro,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.97
-granite4:micro,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.99
-granite4:micro,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""today's news""}",OK,2.14
-granite4:micro,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""news""}",OK,1.58
-granite4:micro,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""today's news""}",OK,1.73
-granite4:micro,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.60
-granite4:micro,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.37
-granite4:micro,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.34
-granite4:micro,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.61
-granite4:micro,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.37
-granite4:micro,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.34
-granite4:micro,Reinicia el computador,system_reboot,system_reboot,{},OK,1.74
-granite4:micro,Reinicia el computador,system_reboot,system_reboot,{},OK,1.45
-granite4:micro,Reinicia el computador,system_reboot,system_reboot,{},OK,1.70
-granite4:micro,Pon el computador a dormir,system_suspend,system_suspend,{},OK,2.01
-granite4:micro,Pon el computador a dormir,system_suspend,system_suspend,{},OK,1.56
-granite4:micro,Pon el computador a dormir,system_suspend,system_suspend,{},OK,1.57
-granite4:micro,"Hola, ¿cómo estás?",,,"Hola! Estoy bien, gracias por preguntar. ¿En qué puedo ayudarte hoy?",OK,2.41
-granite4:micro,"Hola, ¿cómo estás?",,,"Hola! Estoy bien, gracias. ¿Cómo puedo ayudarte hoy?",OK,1.52
-granite4:micro,"Hola, ¿cómo estás?",,,"Hola! Estoy bien, gracias. ¿Cómo puedo ayudarte hoy?",OK,1.54
-granite4:micro,Cuéntame un chiste,,,Claro! ¿Por qué el computador nunca se enoja? Porque tiene buen manejo de errore,OK,2.68
-granite4:micro,Cuéntame un chiste,,,Claro! ¿Por qué el computador nunca puede adivinar números? Porque siempre piens,OK,2.65
-granite4:micro,Cuéntame un chiste,,,Claro! ¿Por qué los números son tontos? Porque siempre se pierden el **cero** (z,OK,2.72
-granite4:micro,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital of France""}",FAIL,2.38
-granite4:micro,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital of France""}",FAIL,1.91
-granite4:micro,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital of France""}",FAIL,1.88
-granite4:tiny-h,¿Qué hora es?,get_time,get_time,{},OK,20.38
-granite4:tiny-h,¿Qué hora es?,get_time,get_time,{},OK,6.21
-granite4:tiny-h,¿Qué hora es?,get_time,get_time,{},OK,6.08
-granite4:tiny-h,¿Qué hora tienes?,get_time,get_time,{},OK,6.07
-granite4:tiny-h,¿Qué hora tienes?,get_time,get_time,{},OK,5.97
-granite4:tiny-h,¿Qué hora tienes?,get_time,get_time,{},OK,5.82
-granite4:tiny-h,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,5.86
-granite4:tiny-h,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,5.91
-granite4:tiny-h,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,5.97
-granite4:tiny-h,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,5.89
-granite4:tiny-h,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,5.76
-granite4:tiny-h,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,5.82
-granite4:tiny-h,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,6.01
-granite4:tiny-h,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,6.04
-granite4:tiny-h,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,5.95
-granite4:tiny-h,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,6.14
-granite4:tiny-h,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,6.19
-granite4:tiny-h,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,6.14
-granite4:tiny-h,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,6.35
-granite4:tiny-h,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,6.41
-granite4:tiny-h,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,6.35
-granite4:tiny-h,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""noticias actuales""}",OK,6.24
-granite4:tiny-h,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""noticias actuales""}",OK,6.16
-granite4:tiny-h,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""noticias de hoy""}",OK,6.20
-granite4:tiny-h,¿Qué ves ahorita?,capture_image,capture_image,{},OK,5.91
-granite4:tiny-h,¿Qué ves ahorita?,capture_image,capture_image,{},OK,5.69
-granite4:tiny-h,¿Qué ves ahorita?,capture_image,capture_image,{},OK,5.79
-granite4:tiny-h,Apaga el computador,system_shutdown,system_shutdown,{},OK,5.58
-granite4:tiny-h,Apaga el computador,system_shutdown,system_shutdown,{},OK,5.79
-granite4:tiny-h,Apaga el computador,system_shutdown,system_shutdown,{},OK,5.56
-granite4:tiny-h,Reinicia el computador,system_reboot,system_reboot,{},OK,5.56
-granite4:tiny-h,Reinicia el computador,system_reboot,system_reboot,{},OK,5.73
-granite4:tiny-h,Reinicia el computador,system_reboot,system_reboot,{},OK,5.77
-granite4:tiny-h,Pon el computador a dormir,system_suspend,system_suspend,{},OK,5.63
-granite4:tiny-h,Pon el computador a dormir,system_suspend,system_suspend,{},OK,5.78
-granite4:tiny-h,Pon el computador a dormir,system_suspend,system_suspend,{},OK,5.92
-granite4:tiny-h,"Hola, ¿cómo estás?",,,"Estoy muy bien, gracias por preguntar! ¿En qué puedo ayudarte hoy? Estoy aquí pa",OK,6.77
-granite4:tiny-h,"Hola, ¿cómo estás?",,,"Estoy muy bien, gracias por preguntar! ¿En qué puedo ayudarte hoy? Estoy aquí pa",OK,6.78
-granite4:tiny-h,"Hola, ¿cómo estás?",,,"Estoy muy bien, gracias por preguntar! Soy un robot y me encanta ayudar a las pe",OK,6.67
-granite4:tiny-h,Cuéntame un chiste,,,"¿Por qué los ordenadores siempre están cansados?  
-Porque están **descargando** ",OK,6.59
-granite4:tiny-h,Cuéntame un chiste,,,"¿Por qué los ordenadores siempre están cansados?  
-¡Porque tienen muchos **bugs*",OK,6.35
-granite4:tiny-h,Cuéntame un chiste,,,¿Por qué los ordenadores siempre están cansados? Porque les da mucha **RAM**! 😄,OK,6.17
-granite4:tiny-h,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital of France""}",FAIL,6.17
-granite4:tiny-h,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital de Francia""}",FAIL,6.25
-granite4:tiny-h,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital of France""}",FAIL,6.05
-granite3.1-moe:3b,¿Qué hora es?,get_time,," {""name"": ""get_time"", ""arguments"": {}}",FAIL,13.54
-granite3.1-moe:3b,¿Qué hora es?,get_time,,,FAIL,0.10
-granite3.1-moe:3b,¿Qué hora es?,get_time,," {""name"": ""get_time"", ""arguments"": {}}",FAIL,0.50
-granite3.1-moe:3b,¿Qué hora tienes?,get_time,,,FAIL,0.20
-granite3.1-moe:3b,¿Qué hora tienes?,get_time,,,FAIL,0.11
-granite3.1-moe:3b,¿Qué hora tienes?,get_time,,,FAIL,0.11
-granite3.1-moe:3b,¿Cuánta batería te queda?,battery_status,,"{""name"": ""battery_status"", ""arguments"": {}}",FAIL,0.66
-granite3.1-moe:3b,¿Cuánta batería te queda?,battery_status,,"{""name"": ""battery_status"", ""arguments"": {}}",FAIL,0.49
-granite3.1-moe:3b,¿Cuánta batería te queda?,battery_status,,"{""name"": ""battery_status"", ""arguments"": {}}",FAIL,0.49
-granite3.1-moe:3b,¿Cómo está la batería del computador?,battery_status,,,FAIL,0.27
-granite3.1-moe:3b,¿Cómo está la batería del computador?,battery_status,,,FAIL,0.11
-granite3.1-moe:3b,¿Cómo está la batería del computador?,battery_status,," {""name"": ""battery_status"", ""arguments"": {}}",FAIL,0.49
-granite3.1-moe:3b,¿Cuánto es 45 por 12?,calculate,,"
-{""name"": ""calculate"", ""arguments"": {""expression"": ""45 * 12""}}",FAIL,0.98
-granite3.1-moe:3b,¿Cuánto es 45 por 12?,calculate,,"
-{""name"": ""calculate"", ""arguments"": {""expression"": ""45 * 12""}}",FAIL,0.80
-granite3.1-moe:3b,¿Cuánto es 45 por 12?,calculate,,,FAIL,0.10
-granite3.1-moe:3b,Calcula la raíz cuadrada de 1750,calculate,,"
-{""name"": ""calculate"", ""arguments"": {""expression"": ""sqrt(1750)""}}",FAIL,1.03
-granite3.1-moe:3b,Calcula la raíz cuadrada de 1750,calculate,,"
-{""name"": ""calculate"", ""arguments"": {""expression"": ""sqrt(1750)""}}",FAIL,0.83
-granite3.1-moe:3b,Calcula la raíz cuadrada de 1750,calculate,,"
-{""name"": ""calculate"", ""arguments"": {""expression"": ""sqrt(1750)""}}",FAIL,0.83
-granite3.1-moe:3b,Busca en internet quién es Baltazar Renfrew,search_web,,"{""name"": ""search_web"", ""arguments"": {""query"": ""Baltazar Renfrew""}}
+qwen3.5:2b,¿Qué hora es?,get_time,get_time,{},OK,22.92
+qwen3.5:2b,¿Qué hora es?,get_time,get_time,{},OK,8.84
+qwen3.5:2b,¿Qué hora es?,get_time,get_time,{},OK,8.34
+qwen3.5:2b,¿Qué hora tienes?,get_time,get_time,{},OK,8.14
+qwen3.5:2b,¿Qué hora tienes?,get_time,get_time,{},OK,8.54
+qwen3.5:2b,¿Qué hora tienes?,get_time,get_time,{},OK,8.56
+qwen3.5:2b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,8.29
+qwen3.5:2b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,8.19
+qwen3.5:2b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,8.09
+qwen3.5:2b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,7.74
+qwen3.5:2b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,7.72
+qwen3.5:2b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,7.69
+qwen3.5:2b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,8.96
+qwen3.5:2b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,11.38
+qwen3.5:2b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,11.38
+qwen3.5:2b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""√1750""}",OK,11.37
+qwen3.5:2b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""√1750""}",OK,11.42
+qwen3.5:2b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""√1750""}",OK,11.38
+qwen3.5:2b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,11.59
+qwen3.5:2b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,11.87
+qwen3.5:2b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,11.62
+qwen3.5:2b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""noticias actualizadas hoy""}",OK,11.31
+qwen3.5:2b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""noticias actualidad 2024""}",OK,11.44
+qwen3.5:2b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""noticias actualizadas 2024""}",OK,11.47
+qwen3.5:2b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,10.19
+qwen3.5:2b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,10.31
+qwen3.5:2b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,10.46
+qwen3.5:2b,Apaga el computador,system_shutdown,system_shutdown,{},OK,10.21
+qwen3.5:2b,Apaga el computador,system_shutdown,system_shutdown,{},OK,10.49
+qwen3.5:2b,Apaga el computador,system_shutdown,system_shutdown,{},OK,10.29
+qwen3.5:2b,Reinicia el computador,system_reboot,system_reboot,{},OK,10.15
+qwen3.5:2b,Reinicia el computador,system_reboot,system_reboot,{},OK,10.41
+qwen3.5:2b,Reinicia el computador,system_reboot,system_reboot,{},OK,10.22
+qwen3.5:2b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,10.23
+qwen3.5:2b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,10.18
+qwen3.5:2b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,8.15
+qwen3.5:2b,"Hola, ¿cómo estás?",,,"¡Hola! Estoy genial, gracias por preguntar. 😊 Y tú... cómo te va con tu día? 🤗",OK,8.29
+qwen3.5:2b,"Hola, ¿cómo estás?",,,¡Hola! Estoy muy bien gracias por preguntar. 😊 Y tú... ¿Cómo te va con tu comput,OK,8.30
+qwen3.5:2b,"Hola, ¿cómo estás?",,,¡Hola! Estoy genial y listo para ayudarte. 😊¿Qué necesitas hoy?,OK,9.09
+qwen3.5:2b,Cuéntame un chiste,,,"¡Claro! Aquí tienes uno: 🤣
 
-No se encont",FAIL,2.35
-granite3.1-moe:3b,Busca en internet quién es Baltazar Renfrew,search_web,,"{""name"": ""search_web"", ""arguments"": {""query"": ""Baltazar Renfrew""}}",FAIL,0.87
-granite3.1-moe:3b,Busca en internet quién es Baltazar Renfrew,search_web,,"{""name"": ""search_web"", ""arguments"": {""query"": ""Baltazar Renfrew""}}",FAIL,0.88
-granite3.1-moe:3b,¿Qué está pasando hoy en las noticias?,search_web,," {""name"": ""search_web"", ""arguments"": {""query"":""noticias de hoy""}}",FAIL,1.01
-granite3.1-moe:3b,¿Qué está pasando hoy en las noticias?,search_web,," {""name"": ""search_web"", ""arguments"": {""query"": ""what is happening today in the n",FAIL,0.86
-granite3.1-moe:3b,¿Qué está pasando hoy en las noticias?,search_web,," {""name"": ""search_web"", ""arguments"": {""query"":""noticias de hoy""}}",FAIL,0.80
-granite3.1-moe:3b,¿Qué ves ahorita?,capture_image,,,FAIL,0.22
-granite3.1-moe:3b,¿Qué ves ahorita?,capture_image,,"
-{""name"": ""capture_image"", ""arguments"": {}}",FAIL,0.54
-granite3.1-moe:3b,¿Qué ves ahorita?,capture_image,,,FAIL,0.11
-granite3.1-moe:3b,Apaga el computador,system_shutdown,," {""name"": ""system_shutdown"", ""arguments"": {}}",FAIL,0.61
-granite3.1-moe:3b,Apaga el computador,system_shutdown,," {""name"": ""system_shutdown"", ""arguments"": {}}",FAIL,0.51
-granite3.1-moe:3b,Apaga el computador,system_shutdown,,"{""name"": ""system_shutdown"", ""arguments"": {}}",FAIL,0.51
-granite3.1-moe:3b,Reinicia el computador,system_reboot,,,FAIL,0.21
-granite3.1-moe:3b,Reinicia el computador,system_reboot,,"{""name"": ""system_reboot"", ""arguments"": {}}",FAIL,0.51
-granite3.1-moe:3b,Reinicia el computador,system_reboot,,"{""name"": ""system_reboot"", ""arguments"": {}}",FAIL,0.51
-granite3.1-moe:3b,Pon el computador a dormir,system_suspend,,,FAIL,0.25
-granite3.1-moe:3b,Pon el computador a dormir,system_suspend,,"{""name"": ""system_suspend"", ""arguments"": {}}",FAIL,0.51
-granite3.1-moe:3b,Pon el computador a dormir,system_suspend,," {""name"": ""system_suspend"", ""arguments"": {}}",FAIL,0.49
-granite3.1-moe:3b,"Hola, ¿cómo estás?",,,👋 ¡Hola! Estoy funcionando a full y listo para ayudarte en lo que necesites. 😊,OK,1.21
-granite3.1-moe:3b,"Hola, ¿cómo estás?",,,😊 ¡Estoy bien y listo para ayudarte! ¿En qué puedo asistirte hoy?,OK,1.04
-granite3.1-moe:3b,"Hola, ¿cómo estás?",,,"😊 Estoy bien y a tu servicio, ¡hola! ¿En qué puedo ayudarte hoy?",OK,1.01
-granite3.1-moe:3b,Cuéntame un chiste,,,,OK,0.22
-granite3.1-moe:3b,Cuéntame un chiste,,,,OK,0.10
-granite3.1-moe:3b,Cuéntame un chiste,,,,OK,0.10
-granite3.1-moe:3b,¿Cuál es la capital de Francia?,,," {""name"": ""search_web"", ""arguments"": {""query"": ""capital of France""}}",OK,0.89
-granite3.1-moe:3b,¿Cuál es la capital de Francia?,,,"
-{""name"": ""search_web"", ""arguments"": {""query"": ""capital of France""}}",OK,0.77
-granite3.1-moe:3b,¿Cuál es la capital de Francia?,,,"
-{""name"": ""search_web"", ""arguments"": {""query"": ""capital of France""}}",OK,0.78
-llama3.2:3b,¿Qué hora es?,get_time,get_time,{},OK,26.12
-llama3.2:3b,¿Qué hora es?,get_time,get_time,{},OK,1.14
-llama3.2:3b,¿Qué hora es?,get_time,get_time,{},OK,1.13
-llama3.2:3b,¿Qué hora tienes?,get_time,get_time,{},OK,1.26
-llama3.2:3b,¿Qué hora tienes?,get_time,get_time,{},OK,1.13
-llama3.2:3b,¿Qué hora tienes?,get_time,get_time,{},OK,1.12
-llama3.2:3b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,1.43
-llama3.2:3b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,1.12
-llama3.2:3b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,1.12
-llama3.2:3b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,1.53
-llama3.2:3b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,1.12
-llama3.2:3b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,1.11
-llama3.2:3b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45/12""}",OK,1.84
-llama3.2:3b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45/12""}",OK,1.48
-llama3.2:3b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45/12""}",OK,1.48
-llama3.2:3b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,2.04
-llama3.2:3b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,1.63
-llama3.2:3b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,1.63
-llama3.2:3b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,2.17
-llama3.2:3b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.76
-llama3.2:3b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.76
-llama3.2:3b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""hoy en las noticias""}",OK,2.07
-llama3.2:3b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""hoy en las noticias""}",OK,1.73
-llama3.2:3b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""hoy en las noticias""}",OK,1.69
-llama3.2:3b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.42
-llama3.2:3b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.13
-llama3.2:3b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.12
-llama3.2:3b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.31
-llama3.2:3b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.11
-llama3.2:3b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.13
-llama3.2:3b,Reinicia el computador,system_reboot,system_reboot,{},OK,1.46
-llama3.2:3b,Reinicia el computador,system_reboot,system_reboot,{},OK,1.20
-llama3.2:3b,Reinicia el computador,system_reboot,system_reboot,{},OK,1.21
-llama3.2:3b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,1.42
-llama3.2:3b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,1.13
-llama3.2:3b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,1.12
-llama3.2:3b,"Hola, ¿cómo estás?",,capture_image,{},FAIL,1.39
-llama3.2:3b,"Hola, ¿cómo estás?",,capture_image,{},FAIL,1.13
-llama3.2:3b,"Hola, ¿cómo estás?",,capture_image,{},FAIL,1.14
-llama3.2:3b,Cuéntame un chiste,,,"{""name"": ""capture_image"", ""{}""}",OK,1.12
-llama3.2:3b,Cuéntame un chiste,,calculate,"{""expression"": ""42+13*2""}",FAIL,1.62
-llama3.2:3b,Cuéntame un chiste,,capture_image,{},FAIL,1.11
-llama3.2:3b,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""Capital de Francia""}",FAIL,2.05
-llama3.2:3b,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital de Francia""}",FAIL,1.62
-llama3.2:3b,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""Capital de Francia""}",FAIL,1.62
-llama3.2:1b,¿Qué hora es?,get_time,get_time,{},OK,13.43
-llama3.2:1b,¿Qué hora es?,get_time,get_time,{},OK,0.74
-llama3.2:1b,¿Qué hora es?,get_time,get_time,{},OK,0.76
-llama3.2:1b,¿Qué hora tienes?,get_time,get_time,{},OK,0.78
-llama3.2:1b,¿Qué hora tienes?,get_time,get_time,{},OK,0.73
-llama3.2:1b,¿Qué hora tienes?,get_time,get_time,{},OK,0.73
-llama3.2:1b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,0.84
-llama3.2:1b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,0.73
-llama3.2:1b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,0.74
-llama3.2:1b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,0.84
-llama3.2:1b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,0.75
-llama3.2:1b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,0.74
-llama3.2:1b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45 * 12""}",OK,1.13
-llama3.2:1b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45 * 12""}",OK,1.01
-llama3.2:1b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45 * 12""}",OK,1.02
-llama3.2:1b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""math.sqrt(1750)""}",OK,1.19
-llama3.2:1b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""math.sqrt(1750)""}",OK,1.07
-llama3.2:1b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""math.sqrt(1750)""}",OK,1.08
-llama3.2:1b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.26
-llama3.2:1b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.13
-llama3.2:1b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.11
-llama3.2:1b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""hoy en noticias""}",OK,1.17
-llama3.2:1b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""hoy en noticias""}",OK,1.07
-llama3.2:1b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""hoy en noticias""}",OK,1.10
-llama3.2:1b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,0.80
-llama3.2:1b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,0.73
-llama3.2:1b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,0.76
-llama3.2:1b,Apaga el computador,system_shutdown,system_shutdown,{},OK,0.85
-llama3.2:1b,Apaga el computador,system_shutdown,system_shutdown,{},OK,0.75
-llama3.2:1b,Apaga el computador,system_shutdown,system_shutdown,{},OK,0.86
-llama3.2:1b,Reinicia el computador,system_reboot,system_shutdown,{},FAIL,0.84
-llama3.2:1b,Reinicia el computador,system_reboot,system_shutdown,{},FAIL,0.76
-llama3.2:1b,Reinicia el computador,system_reboot,system_shutdown,{},FAIL,0.76
-llama3.2:1b,Pon el computador a dormir,system_suspend,system_shutdown,{},FAIL,0.87
-llama3.2:1b,Pon el computador a dormir,system_suspend,system_shutdown,{},FAIL,0.76
-llama3.2:1b,Pon el computador a dormir,system_suspend,system_shutdown,{},FAIL,0.77
-llama3.2:1b,"Hola, ¿cómo estás?",,get_time,{},FAIL,0.88
-llama3.2:1b,"Hola, ¿cómo estás?",,get_time,{},FAIL,0.76
-llama3.2:1b,"Hola, ¿cómo estás?",,get_time,{},FAIL,0.77
-llama3.2:1b,Cuéntame un chiste,,calculate,"{""expression"": ""9+2""}",FAIL,1.07
-llama3.2:1b,Cuéntame un chiste,,calculate,"{""expression"": ""10 + 5""}",FAIL,1.03
-llama3.2:1b,Cuéntame un chiste,,calculate,"{""expression"": ""10 + 5""}",FAIL,1.02
-llama3.2:1b,¿Cuál es la capital de Francia?,,get_time,{},FAIL,0.89
-llama3.2:1b,¿Cuál es la capital de Francia?,,get_time,{},FAIL,0.77
-llama3.2:1b,¿Cuál es la capital de Francia?,,get_time,{},FAIL,0.73
-qwen3:8b,¿Qué hora es?,get_time,get_time,{},OK,58.89
-qwen3:8b,¿Qué hora es?,get_time,get_time,{},OK,3.27
-qwen3:8b,¿Qué hora es?,get_time,get_time,{},OK,3.27
-qwen3:8b,¿Qué hora tienes?,get_time,get_time,{},OK,3.90
-qwen3:8b,¿Qué hora tienes?,get_time,get_time,{},OK,3.39
-qwen3:8b,¿Qué hora tienes?,get_time,get_time,{},OK,3.19
-qwen3:8b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,3.98
-qwen3:8b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,3.04
-qwen3:8b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,3.06
-qwen3:8b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,4.13
-qwen3:8b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,3.14
-qwen3:8b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,3.21
-qwen3:8b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,5.80
-qwen3:8b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,4.46
-qwen3:8b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,4.85
-qwen3:8b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""1750**0.5""}",OK,6.06
-qwen3:8b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,4.66
-qwen3:8b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,4.77
-qwen3:8b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,5.70
-qwen3:8b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,4.44
-qwen3:8b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,4.45
-qwen3:8b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""noticias de hoy""}",OK,5.03
-qwen3:8b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""noticias de hoy""}",OK,4.09
-qwen3:8b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""noticias de hoy""}",OK,4.19
-qwen3:8b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,3.68
-qwen3:8b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,3.00
-qwen3:8b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,2.98
-qwen3:8b,Apaga el computador,system_shutdown,system_shutdown,{},OK,3.67
-qwen3:8b,Apaga el computador,system_shutdown,system_shutdown,{},OK,3.06
-qwen3:8b,Apaga el computador,system_shutdown,system_shutdown,{},OK,3.01
-qwen3:8b,Reinicia el computador,system_reboot,system_reboot,{},OK,4.22
-qwen3:8b,Reinicia el computador,system_reboot,system_reboot,{},OK,3.27
-qwen3:8b,Reinicia el computador,system_reboot,system_reboot,{},OK,3.16
-qwen3:8b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,3.93
-qwen3:8b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,3.03
-qwen3:8b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,3.18
-qwen3:8b,"Hola, ¿cómo estás?",,,"Hola! Estoy aquí, lista para ayudarte. ¿En qué puedo ayudarte hoy? 🤖✨",OK,5.50
-qwen3:8b,"Hola, ¿cómo estás?",,,"Hola! Estoy aquí, lista para ayudarte. ¿En qué puedo ayudarte hoy? 😊",OK,4.15
-qwen3:8b,"Hola, ¿cómo estás?",,,"¡Hola! Estoy aquí, ¿qué puedo ayudarte a hacer? 😊",OK,3.41
-qwen3:8b,Cuéntame un chiste,,,"¡Claro! ¿Te cuento uno de perros? 👐
+¿Por qué el gato se fue a la luna?
+Respuesta: Porque",OK,51.09
+qwen3.5:2b,Cuéntame un chiste,,,¡Claro que sí! ¿Qué tipo de chiste te gusta? 😄,OK,39.32
+qwen3.5:2b,Cuéntame un chiste,,,"¡Claro que sí! 🤣
 
-Un perro entra a un bar y pide un refresco.",OK,15.20
-qwen3:8b,Cuéntame un chiste,,,"¡Claro! ¿Te cuento uno de los más clásicos? 😊
+¿Por qué el gato se comió la pelota de fútbol? Porque fue dema",OK,19.40
+qwen3.5:2b,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital de Francia""}",FAIL,14.06
+qwen3.5:2b,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital de Francia""}",FAIL,12.81
+qwen3.5:2b,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital de Francia""}",FAIL,12.03
+qwen3.5:4b,¿Qué hora es?,get_time,get_time,{},OK,49.49
+qwen3.5:4b,¿Qué hora es?,get_time,get_time,{},OK,14.17
+qwen3.5:4b,¿Qué hora es?,get_time,get_time,{},OK,11.02
+qwen3.5:4b,¿Qué hora tienes?,get_time,get_time,{},OK,11.58
+qwen3.5:4b,¿Qué hora tienes?,get_time,get_time,{},OK,12.01
+qwen3.5:4b,¿Qué hora tienes?,get_time,get_time,{},OK,11.99
+qwen3.5:4b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,12.66
+qwen3.5:4b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,12.20
+qwen3.5:4b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,12.21
+qwen3.5:4b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,11.86
+qwen3.5:4b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,12.27
+qwen3.5:4b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,12.27
+qwen3.5:4b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,14.04
+qwen3.5:4b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,14.23
+qwen3.5:4b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,13.90
+qwen3.5:4b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""**""}",OK,13.56
+qwen3.5:4b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""**""}",OK,13.92
+qwen3.5:4b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""** (1/2) 1750""}",OK,15.03
+qwen3.5:4b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,14.01
+qwen3.5:4b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,13.79
+qwen3.5:4b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,14.47
+qwen3.5:4b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""noticias de hoy""}",OK,13.63
+qwen3.5:4b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""noticias de hoy""}",OK,13.48
+qwen3.5:4b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""noticias de hoy""}",OK,14.03
+qwen3.5:4b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,12.29
+qwen3.5:4b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,12.25
+qwen3.5:4b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,12.20
+qwen3.5:4b,Apaga el computador,system_shutdown,system_shutdown,{},OK,12.03
+qwen3.5:4b,Apaga el computador,system_shutdown,system_shutdown,{},OK,11.97
+qwen3.5:4b,Apaga el computador,system_shutdown,system_shutdown,{},OK,12.43
+qwen3.5:4b,Reinicia el computador,system_reboot,system_reboot,{},OK,12.37
+qwen3.5:4b,Reinicia el computador,system_reboot,system_reboot,{},OK,12.88
+qwen3.5:4b,Reinicia el computador,system_reboot,system_reboot,{},OK,12.21
+qwen3.5:4b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,12.16
+qwen3.5:4b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,12.10
+qwen3.5:4b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,12.12
+qwen3.5:4b,"Hola, ¿cómo estás?",,,"¡Hola! Estoy muy bien, ¡gracias por preguntar! Soy un robot entusiasta y listo p",OK,14.16
+qwen3.5:4b,"Hola, ¿cómo estás?",,,"¡Hola! Estoy muy bien, ¡gracias por preguntar! Soy un robot entusiasta y siempre",OK,14.64
+qwen3.5:4b,"Hola, ¿cómo estás?",,,"¡Hola! ¡Estoy genial, gracias por preguntar! Soy un robot muy feliz de estar aqu",OK,14.37
+qwen3.5:4b,Cuéntame un chiste,,,¿Por qué los robots siempre tienen problemas con las baterías? Porque son propen,OK,14.44
+qwen3.5:4b,Cuéntame un chiste,,,¡Claro! ¿Por qué los robots siempre son buenos en las matemáticas? Porque tienen,OK,14.91
+qwen3.5:4b,Cuéntame un chiste,,,"¡Por supuesto! ¿Qué tal este?
 
-¿Por qué el robot no se mete en l",OK,11.17
-qwen3:8b,Cuéntame un chiste,,,"¡Claro! ¿Te cuento uno de los más clásicos?
-
-¿Por qué los robots no se cansan nu",OK,7.74
-qwen3:8b,¿Cuál es la capital de Francia?,,,Paris.,OK,1.72
-qwen3:8b,¿Cuál es la capital de Francia?,,,Paris.,OK,0.72
-qwen3:8b,¿Cuál es la capital de Francia?,,,Paris.,OK,0.70
-qwen3:4b,¿Qué hora es?,get_time,get_time,{},OK,58.35
-qwen3:4b,¿Qué hora es?,get_time,get_time,{},OK,23.04
-qwen3:4b,¿Qué hora es?,get_time,get_time,{},OK,23.19
-qwen3:4b,¿Qué hora tienes?,get_time,get_time,{},OK,23.36
-qwen3:4b,¿Qué hora tienes?,get_time,get_time,{},OK,43.35
-qwen3:4b,¿Qué hora tienes?,get_time,get_time,{},OK,23.84
-qwen3:4b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,18.55
-qwen3:4b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,33.55
-qwen3:4b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,21.57
-qwen3:4b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,27.33
-qwen3:4b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,35.27
-qwen3:4b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,48.35
-qwen3:4b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,40.47
-qwen3:4b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,35.98
-qwen3:4b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,35.44
-qwen3:4b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""1750 ** 0.5""}",OK,40.47
-qwen3:4b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""1750 ** 0.5""}",OK,25.48
-qwen3:4b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""1750 ** 0.5""}",OK,57.28
-qwen3:4b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,87.92
-qwen3:4b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,221.64
-qwen3:4b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,162.40
-qwen3:4b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""today's news""}",OK,182.68
-qwen3:4b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""noticias hoy""}",OK,76.28
-qwen3:4b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""noticias hoy""}",OK,133.91
-qwen3:4b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,28.32
-qwen3:4b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,22.30
-qwen3:4b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,32.07
-qwen3:4b,Apaga el computador,system_shutdown,system_shutdown,{},OK,21.22
-qwen3:4b,Apaga el computador,system_shutdown,system_shutdown,{},OK,18.93
-qwen3:4b,Apaga el computador,system_shutdown,system_shutdown,{},OK,19.85
-qwen3:4b,Reinicia el computador,system_reboot,system_reboot,{},OK,27.04
-qwen3:4b,Reinicia el computador,system_reboot,system_reboot,{},OK,18.80
-qwen3:4b,Reinicia el computador,system_reboot,system_reboot,{},OK,25.59
-qwen3:4b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,33.63
-qwen3:4b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,27.89
-qwen3:4b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,24.87
-qwen3:4b,"Hola, ¿cómo estás?",,,"Okay, the user said ""Hola, ¿cómo estás?"" which means ""Hello, how are you?"" in Sp",OK,262.56
-qwen3:4b,"Hola, ¿cómo estás?",,,"Okay, the user said ""Hola, ¿cómo estás?"" which means ""Hello, how are you?"" in Sp",OK,182.75
-qwen3:4b,"Hola, ¿cómo estás?",,,"Okay, the user said ""Hola, ¿cómo estás?"" which means ""Hello, how are you?"" in Sp",OK,148.74
-qwen3:4b,Cuéntame un chiste,,,"Okay, the user asked me to tell a joke. Let me check the tools I have. The tools",OK,23.57
-qwen3:4b,Cuéntame un chiste,,,"Okay, the user asked for a joke. Let me check the tools I have. The tools are ge",OK,106.75
-qwen3:4b,Cuéntame un chiste,,,"Okay, the user asked me to tell a joke. Let me check the tools I have. The tools",OK,25.07
-qwen3:4b,¿Cuál es la capital de Francia?,,,"Okay, the user is asking for the capital of France. Let me think.
-
-First, I need",OK,62.76
-qwen3:4b,¿Cuál es la capital de Francia?,,,"Okay, the user is asking for the capital of France. Let me think.
-
-First, I need",OK,211.16
-qwen3:4b,¿Cuál es la capital de Francia?,,,"Okay, the user is asking for the capital of France. Let me think.
-
-First, I need",OK,270.96
-qwen3:1.7b,¿Qué hora es?,get_time,get_time,{},OK,15.64
-qwen3:1.7b,¿Qué hora es?,get_time,get_time,{},OK,0.93
-qwen3:1.7b,¿Qué hora es?,get_time,get_time,{},OK,0.95
-qwen3:1.7b,¿Qué hora tienes?,get_time,get_time,{},OK,1.12
-qwen3:1.7b,¿Qué hora tienes?,get_time,get_time,{},OK,0.94
-qwen3:1.7b,¿Qué hora tienes?,get_time,get_time,{},OK,1.21
-qwen3:1.7b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,1.27
-qwen3:1.7b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,0.95
-qwen3:1.7b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,0.94
-qwen3:1.7b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,1.20
-qwen3:1.7b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,0.94
-qwen3:1.7b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,0.94
-qwen3:1.7b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,1.52
-qwen3:1.7b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,1.22
-qwen3:1.7b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,1.23
-qwen3:1.7b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""1750""}",OK,1.49
-qwen3:1.7b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""1750**0.5""}",OK,1.36
-qwen3:1.7b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""1750**0.5""}",OK,1.35
-qwen3:1.7b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.64
-qwen3:1.7b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.30
-qwen3:1.7b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.29
-qwen3:1.7b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""noticias""}",OK,1.36
-qwen3:1.7b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""noticias""}",OK,1.13
-qwen3:1.7b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""noticias""}",OK,1.11
-qwen3:1.7b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.07
-qwen3:1.7b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,0.92
-qwen3:1.7b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,0.92
-qwen3:1.7b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.09
-qwen3:1.7b,Apaga el computador,system_shutdown,system_shutdown,{},OK,0.90
-qwen3:1.7b,Apaga el computador,system_shutdown,system_shutdown,{},OK,0.90
-qwen3:1.7b,Reinicia el computador,system_reboot,system_reboot,{},OK,1.15
-qwen3:1.7b,Reinicia el computador,system_reboot,system_reboot,{},OK,0.94
-qwen3:1.7b,Reinicia el computador,system_reboot,system_reboot,{},OK,0.95
-qwen3:1.7b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,1.12
-qwen3:1.7b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,0.88
-qwen3:1.7b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,0.89
-qwen3:1.7b,"Hola, ¿cómo estás?",,,¡Hola! Estoy aquí para ayudarte. ¿Cómo te puedo ayudar hoy? 😊,OK,1.35
-qwen3:1.7b,"Hola, ¿cómo estás?",,,¡Hola! Estoy aquí para ayudarte. ¿Cómo te puedo ayudar hoy? 😊,OK,1.14
-qwen3:1.7b,"Hola, ¿cómo estás?",,,¡Hola! Estoy aquí para ayudarte. ¿Cómo puedo ayudarte hoy? 😊,OK,1.09
-qwen3:1.7b,Cuéntame un chiste,,,¡Claro! ¿Qué es más pesado: un caballo o un reloj? 🤣,OK,1.49
-qwen3:1.7b,Cuéntame un chiste,,,¡Claro! ¿Qué es más divertido que un chiste? ¡Un chiste! 🤗,OK,1.31
-qwen3:1.7b,Cuéntame un chiste,,,¡Claro! ¿Qué es más divertido que un chiste? ¡Un chiste! 🤗,OK,1.29
-qwen3:1.7b,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital de Francia""}",FAIL,1.42
-qwen3:1.7b,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital de Francia""}",FAIL,1.18
-qwen3:1.7b,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital de Francia""}",FAIL,1.20
-qwen2.5:1.5b,¿Qué hora es?,get_time,,Son las 9:52 de la mañana.,FAIL,11.87
-qwen2.5:1.5b,¿Qué hora es?,get_time,,Son las 9:52 de la mañana.,FAIL,0.65
-qwen2.5:1.5b,¿Qué hora es?,get_time,,Son las 9:52 de la mañana.,FAIL,0.64
-qwen2.5:1.5b,¿Qué hora tienes?,get_time,,9:52 de la mañana.,FAIL,0.57
-qwen2.5:1.5b,¿Qué hora tienes?,get_time,,Son las 9:52 de la mañana.,FAIL,0.65
-qwen2.5:1.5b,¿Qué hora tienes?,get_time,,Son las 9:52 de la mañana.,FAIL,0.65
-qwen2.5:1.5b,¿Cuánta batería te queda?,battery_status,,"La batería está al 47 por ciento, actualmente descargando.",FAIL,1.09
-qwen2.5:1.5b,¿Cuánta batería te queda?,battery_status,,Mi batería está al 47 por ciento y está descargándose.,FAIL,0.93
-qwen2.5:1.5b,¿Cuánta batería te queda?,battery_status,,Tengo un 47% de batería actualmente descargando.,FAIL,0.88
-qwen2.5:1.5b,¿Cómo está la batería del computador?,battery_status,,El sistema informa que la batería tiene un 47% de carga actualmente descargándos,FAIL,1.25
-qwen2.5:1.5b,¿Cómo está la batería del computador?,battery_status,,El sistema informa que la batería está al 47 por ciento y se está descargando.,FAIL,1.17
-qwen2.5:1.5b,¿Cómo está la batería del computador?,battery_status,,La batería está al 50 por ciento y está descargándose actualmente.,FAIL,1.00
-qwen2.5:1.5b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45 * 12""}",OK,1.22
-qwen2.5:1.5b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45 * 12""}",OK,1.07
-qwen2.5:1.5b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45 * 12""}",OK,1.09
-qwen2.5:1.5b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,1.28
-qwen2.5:1.5b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,1.12
-qwen2.5:1.5b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,1.12
-qwen2.5:1.5b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.25
-qwen2.5:1.5b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.12
-qwen2.5:1.5b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.21
-qwen2.5:1.5b,¿Qué está pasando hoy en las noticias?,search_web,,"I'm sorry, but I can't browse the internet or access current news sources. Let m",FAIL,1.39
-qwen2.5:1.5b,¿Qué está pasando hoy en las noticias?,search_web,,"Lo siento por la confusión, pero como soy un robot de IA, no tengo la capacidad ",FAIL,2.65
-qwen2.5:1.5b,¿Qué está pasando hoy en las noticias?,search_web,,"I'm sorry, but I can't find any news about that topic.",FAIL,0.80
-qwen2.5:1.5b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,0.87
-qwen2.5:1.5b,¿Qué ves ahorita?,capture_image,,"Aqui estoy, esperando por ti!",FAIL,0.56
-qwen2.5:1.5b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,0.80
-qwen2.5:1.5b,Apaga el computador,system_shutdown,system_shutdown,{},OK,0.87
-qwen2.5:1.5b,Apaga el computador,system_shutdown,system_shutdown,{},OK,0.80
-qwen2.5:1.5b,Apaga el computador,system_shutdown,system_shutdown,{},OK,0.80
-qwen2.5:1.5b,Reinicia el computador,system_reboot,system_reboot,{},OK,0.92
-qwen2.5:1.5b,Reinicia el computador,system_reboot,system_reboot,{},OK,0.84
-qwen2.5:1.5b,Reinicia el computador,system_reboot,system_reboot,{},OK,0.84
-qwen2.5:1.5b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,0.89
-qwen2.5:1.5b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,0.81
-qwen2.5:1.5b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,0.81
-qwen2.5:1.5b,"Hola, ¿cómo estás?",,,"¡Hola! Estoy bien, gracias por preguntar. ¿Y tú, cómo te encuentras hoy?",OK,1.22
-qwen2.5:1.5b,"Hola, ¿cómo estás?",,,"¡Hola! Estoy bien, gracias por preguntar. ¿Cómo puedo ayudarte hoy?",OK,1.00
-qwen2.5:1.5b,"Hola, ¿cómo estás?",,,"¡Hola! Estoy bien, gracias por preguntar. ¿Y tú, cómo te encuentras hoy?",OK,1.12
-qwen2.5:1.5b,Cuéntame un chiste,,,"Claro, aquí tienes uno:
-¿Qué hace una abeja en la cama?
-¡Zum-ba!",OK,1.28
-qwen2.5:1.5b,Cuéntame un chiste,,,"Claro, aquí tienes uno:
-¿Qué hace una abeja en el gimnasio?
-¡Juega a la pólvora!",OK,1.38
-qwen2.5:1.5b,Cuéntame un chiste,,,"Claro, aquí tienes uno:
-¿Qué hace una abeja en la cama?
-¡Jajaja, está durmiendo!",OK,1.34
-qwen2.5:1.5b,¿Cuál es la capital de Francia?,,,La capital de Francia es París.,OK,0.67
-qwen2.5:1.5b,¿Cuál es la capital de Francia?,,,La capital de Francia es París.,OK,0.57
-qwen2.5:1.5b,¿Cuál es la capital de Francia?,,,La capital de Francia es París.,OK,0.56
-allenporter/xlam:1b,¿Qué hora es?,get_time,,"
-{""tool_calls"": [{""name"": ""get_time"", ""arguments"": {}}]}",FAIL,17.08
-allenporter/xlam:1b,¿Qué hora es?,get_time,,"
-{""tool_calls"": [{""name"": ""get_time"", ""arguments"": {}}]}",FAIL,1.01
-allenporter/xlam:1b,¿Qué hora es?,get_time,,"
-{""tool_calls"": [{""name"": ""get_time"", ""arguments"": {}}]}",FAIL,0.98
-allenporter/xlam:1b,¿Qué hora tienes?,get_time,,"
-{""tool_calls"": [{""name"": ""get_time"", ""arguments"": {}}]}",FAIL,1.17
-allenporter/xlam:1b,¿Qué hora tienes?,get_time,,"
-{""tool_calls"": [{""name"": ""get_time"", ""arguments"": {}}]}",FAIL,1.01
-allenporter/xlam:1b,¿Qué hora tienes?,get_time,,"
-{""tool_calls"": [{""name"": ""get_time"", ""arguments"": {}}]}",FAIL,1.00
-allenporter/xlam:1b,¿Cuánta batería te queda?,battery_status,,"
-{""tool_calls"": [{""name"": ""battery_status"", ""arguments"": {}}]}",FAIL,1.32
-allenporter/xlam:1b,¿Cuánta batería te queda?,battery_status,,"
-{""tool_calls"": [{""name"": ""battery_status"", ""arguments"": {}}]}",FAIL,1.04
-allenporter/xlam:1b,¿Cuánta batería te queda?,battery_status,,"
-{""tool_calls"": [{""name"": ""battery_status"", ""arguments"": {}}]}",FAIL,1.05
-allenporter/xlam:1b,¿Cómo está la batería del computador?,battery_status,,"
-{""tool_calls"": [{""name"": ""battery_status"", ""arguments"": {}}]}",FAIL,1.31
-allenporter/xlam:1b,¿Cómo está la batería del computador?,battery_status,,"
-{""tool_calls"": [{""name"": ""battery_status"", ""arguments"": {}}]}",FAIL,1.02
-allenporter/xlam:1b,¿Cómo está la batería del computador?,battery_status,,"
-{""tool_calls"": [{""name"": ""battery_status"", ""arguments"": {}}]}",FAIL,1.03
-allenporter/xlam:1b,¿Cuánto es 45 por 12?,calculate,,"
-{""tool_calls"": [{""name"": ""calculate"", ""arguments"": {""expression"": ""\""45/12\""""}}",FAIL,1.70
-allenporter/xlam:1b,¿Cuánto es 45 por 12?,calculate,,"
-{""tool_calls"": [{""name"": ""calculate"", ""arguments"": {""expression"": ""\""45/12\""""}}",FAIL,1.40
-allenporter/xlam:1b,¿Cuánto es 45 por 12?,calculate,,"
-{""tool_calls"": [{""name"": ""calculate"", ""arguments"": {""expression"": ""\""45/12\""""}}",FAIL,1.40
-allenporter/xlam:1b,Calcula la raíz cuadrada de 1750,calculate,,"
-{""tool_calls"": [{""name"": ""calculate"", ""arguments"": {""expression"": ""sqrt(1750)""}",FAIL,1.70
-allenporter/xlam:1b,Calcula la raíz cuadrada de 1750,calculate,,"
-{""tool_calls"": [{""name"": ""calculate"", ""arguments"": {""expression"": ""sqrt(1750)""}",FAIL,1.37
-allenporter/xlam:1b,Calcula la raíz cuadrada de 1750,calculate,,"
-{""tool_calls"": [{""name"": ""calculate"", ""arguments"": {""expression"": ""sqrt(1750)""}",FAIL,1.37
-allenporter/xlam:1b,Busca en internet quién es Baltazar Renfrew,search_web,,"
-{""tool_calls"": [{""name"": ""search_web"", ""arguments"": {""query"":""Baltazar Renfrew""",FAIL,1.68
-allenporter/xlam:1b,Busca en internet quién es Baltazar Renfrew,search_web,,"
-{""tool_calls"": [{""name"": ""search_web"", ""arguments"": {""query"":""Baltazar Renfrew""",FAIL,1.37
-allenporter/xlam:1b,Busca en internet quién es Baltazar Renfrew,search_web,,"
-{""tool_calls"": [{""name"": ""search_web"", ""arguments"": {""query"":""Baltazar Renfrew""",FAIL,1.36
-allenporter/xlam:1b,¿Qué está pasando hoy en las noticias?,search_web,,"
-{""tool_calls"": [{""name"": ""search_web"", ""arguments"": {""query"":""what is happening",FAIL,1.60
-allenporter/xlam:1b,¿Qué está pasando hoy en las noticias?,search_web,,"
-{""tool_calls"": [{""name"": ""search_web"", ""arguments"": {""query"": ""noticia actual""}",FAIL,1.28
-allenporter/xlam:1b,¿Qué está pasando hoy en las noticias?,search_web,,"
-{""tool_calls"": [{""name"": ""search_web"", ""arguments"": {""query"":""noticia actual""}}",FAIL,1.23
-allenporter/xlam:1b,¿Qué ves ahorita?,capture_image,,"
-{""tool_calls"": [{""name"": ""capture_image"", ""arguments"": {}}]}",FAIL,1.22
-allenporter/xlam:1b,¿Qué ves ahorita?,capture_image,,"
-{""tool_calls"": [{""name"": ""capture_image"", ""arguments"": {}}]}",FAIL,1.02
-allenporter/xlam:1b,¿Qué ves ahorita?,capture_image,,"
-{""tool_calls"": [{""name"": ""capture_image"", ""arguments"": {}}]}",FAIL,1.03
-allenporter/xlam:1b,Apaga el computador,system_shutdown,,"
-{""tool_calls"": [{""name"": ""system_shutdown"", ""arguments"": {}}]}",FAIL,1.23
-allenporter/xlam:1b,Apaga el computador,system_shutdown,,"
-{""tool_calls"": [{""name"": ""system_shutdown"", ""arguments"": {}}]}",FAIL,1.03
-allenporter/xlam:1b,Apaga el computador,system_shutdown,,"
-{""tool_calls"": [{""name"": ""system_shutdown"", ""arguments"": {}}]}",FAIL,1.03
-allenporter/xlam:1b,Reinicia el computador,system_reboot,,"
-{""tool_calls"": [{""name"": ""system_reboot"", ""arguments"": {}}]}",FAIL,1.25
-allenporter/xlam:1b,Reinicia el computador,system_reboot,,"
-{""tool_calls"": [{""name"": ""system_reboot"", ""arguments"": {}}]}",FAIL,1.03
-allenporter/xlam:1b,Reinicia el computador,system_reboot,,"
-{""tool_calls"": [{""name"": ""system_reboot"", ""arguments"": {}}]}",FAIL,1.03
-allenporter/xlam:1b,Pon el computador a dormir,system_suspend,,"
-{""tool_calls"": [{""name"": ""system_suspend"", ""arguments"": {}}]}",FAIL,1.26
-allenporter/xlam:1b,Pon el computador a dormir,system_suspend,,"
-{""tool_calls"": [{""name"": ""system_suspend"", ""arguments"": {}}]}",FAIL,1.03
-allenporter/xlam:1b,Pon el computador a dormir,system_suspend,,"
-{""tool_calls"": [{""name"": ""system_suspend"", ""arguments"": {}}]}",FAIL,1.03
-allenporter/xlam:1b,"Hola, ¿cómo estás?",,,"
-{""tool_calls"": [{""name"": ""get_time"", ""arguments"": {}}]}",OK,1.25
-allenporter/xlam:1b,"Hola, ¿cómo estás?",,,"
-{""tool_calls"": [{""name"": ""calculate"", ""arguments"": {""expression"": ""'estoy bien'",OK,1.39
-allenporter/xlam:1b,"Hola, ¿cómo estás?",,,"
-{""tool_calls"": [{""name"": ""get_time"", ""arguments"": {}}]}",OK,0.99
-allenporter/xlam:1b,Cuéntame un chiste,,,"
-{""tool_calls"": [{""name"": ""search_web"", ""arguments"": {""query"":""chistes""}}]}",OK,1.41
-allenporter/xlam:1b,Cuéntame un chiste,,,"
-{""tool_calls"": [{""name"": ""search_web"", ""arguments"": {""query"":""chistes""}}]}",OK,1.19
-allenporter/xlam:1b,Cuéntame un chiste,,,"
-{""tool_calls"": [{""name"": ""search_web"", ""arguments"": {""query"":""chistes""}}]}",OK,1.18
-allenporter/xlam:1b,¿Cuál es la capital de Francia?,,,"
-{""tool_calls"": [{""name"": ""search_web"", ""arguments"": {""query"":""capital of France",OK,1.52
-allenporter/xlam:1b,¿Cuál es la capital de Francia?,,,"
-{""tool_calls"": [{""name"": ""search_web"", ""arguments"": {""query"": ""capital of Franc",OK,1.30
-allenporter/xlam:1b,¿Cuál es la capital de Francia?,,,"
-{""tool_calls"": [{""name"": ""search_web"", ""arguments"": {""query"": ""capital of Franc",OK,1.30
-gemma:2b,¿Qué hora es?,get_time,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.13
-gemma:2b,¿Qué hora es?,get_time,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.13
-gemma:2b,¿Qué hora es?,get_time,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.13
-gemma:2b,¿Qué hora tienes?,get_time,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.14
-gemma:2b,¿Qué hora tienes?,get_time,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.13
-gemma:2b,¿Qué hora tienes?,get_time,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
-gemma:2b,¿Cuánta batería te queda?,battery_status,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.13
-gemma:2b,¿Cuánta batería te queda?,battery_status,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
-gemma:2b,¿Cuánta batería te queda?,battery_status,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.16
-gemma:2b,¿Cómo está la batería del computador?,battery_status,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.14
-gemma:2b,¿Cómo está la batería del computador?,battery_status,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.13
-gemma:2b,¿Cómo está la batería del computador?,battery_status,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.14
-gemma:2b,¿Cuánto es 45 por 12?,calculate,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.11
-gemma:2b,¿Cuánto es 45 por 12?,calculate,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.11
-gemma:2b,¿Cuánto es 45 por 12?,calculate,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.13
-gemma:2b,Calcula la raíz cuadrada de 1750,calculate,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.13
-gemma:2b,Calcula la raíz cuadrada de 1750,calculate,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.13
-gemma:2b,Calcula la raíz cuadrada de 1750,calculate,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.14
-gemma:2b,Busca en internet quién es Baltazar Renfrew,search_web,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.14
-gemma:2b,Busca en internet quién es Baltazar Renfrew,search_web,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
-gemma:2b,Busca en internet quién es Baltazar Renfrew,search_web,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
-gemma:2b,¿Qué está pasando hoy en las noticias?,search_web,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.11
-gemma:2b,¿Qué está pasando hoy en las noticias?,search_web,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
-gemma:2b,¿Qué está pasando hoy en las noticias?,search_web,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
-gemma:2b,¿Qué ves ahorita?,capture_image,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
-gemma:2b,¿Qué ves ahorita?,capture_image,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
-gemma:2b,¿Qué ves ahorita?,capture_image,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
-gemma:2b,Apaga el computador,system_shutdown,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.11
-gemma:2b,Apaga el computador,system_shutdown,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.13
-gemma:2b,Apaga el computador,system_shutdown,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
-gemma:2b,Reinicia el computador,system_reboot,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
-gemma:2b,Reinicia el computador,system_reboot,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
-gemma:2b,Reinicia el computador,system_reboot,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.11
-gemma:2b,Pon el computador a dormir,system_suspend,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.13
-gemma:2b,Pon el computador a dormir,system_suspend,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
-gemma:2b,Pon el computador a dormir,system_suspend,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
-gemma:2b,"Hola, ¿cómo estás?",,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
-gemma:2b,"Hola, ¿cómo estás?",,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.13
-gemma:2b,"Hola, ¿cómo estás?",,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.13
-gemma:2b,Cuéntame un chiste,,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
-gemma:2b,Cuéntame un chiste,,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
-gemma:2b,Cuéntame un chiste,,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.13
-gemma:2b,¿Cuál es la capital de Francia?,,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.11
-gemma:2b,¿Cuál es la capital de Francia?,,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.11
-gemma:2b,¿Cuál es la capital de Francia?,,ERROR,registry.ollama.ai/library/gemma:2b does not support tools (status code: 400),,0.12
+¿De qué se ríe el robot cuando tiene una batería ",OK,16.04
+qwen3.5:4b,¿Cuál es la capital de Francia?,,,La capital de Francia es París! 🇫🇷✨,OK,12.28
+qwen3.5:4b,¿Cuál es la capital de Francia?,,,La capital de Francia es París! 🇫🇷✨,OK,12.02
+qwen3.5:4b,¿Cuál es la capital de Francia?,,,La capital de Francia es París! 🗼✨,OK,11.69
+granite3.3:2b,¿Qué hora es?,get_time,get_time,{},OK,21.79
+granite3.3:2b,¿Qué hora es?,get_time,get_time,{},OK,0.98
+granite3.3:2b,¿Qué hora es?,get_time,get_time,{},OK,0.97
+granite3.3:2b,¿Qué hora tienes?,get_time,get_time,{},OK,2.64
+granite3.3:2b,¿Qué hora tienes?,get_time,get_time,{},OK,0.97
+granite3.3:2b,¿Qué hora tienes?,get_time,get_time,{},OK,0.98
+granite3.3:2b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,1.21
+granite3.3:2b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,0.97
+granite3.3:2b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,1.00
+granite3.3:2b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,1.24
+granite3.3:2b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,0.97
+granite3.3:2b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,0.98
+granite3.3:2b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,1.62
+granite3.3:2b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,1.33
+granite3.3:2b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,1.34
+granite3.3:2b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,2.17
+granite3.3:2b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,1.79
+granite3.3:2b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,1.88
+granite3.3:2b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,2.37
+granite3.3:2b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.96
+granite3.3:2b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,1.96
+granite3.3:2b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""today's news""}",OK,2.12
+granite3.3:2b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""today's news""}",OK,1.63
+granite3.3:2b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""today's news""}",OK,1.65
+granite3.3:2b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.53
+granite3.3:2b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.01
+granite3.3:2b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.26
+granite3.3:2b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.09
+granite3.3:2b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.02
+granite3.3:2b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.01
+granite3.3:2b,Reinicia el computador,system_reboot,system_reboot,{},OK,1.12
+granite3.3:2b,Reinicia el computador,system_reboot,,,FAIL,1.08
+granite3.3:2b,Reinicia el computador,system_reboot,system_reboot,{},OK,1.05
+granite3.3:2b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,1.54
+granite3.3:2b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,0.99
+granite3.3:2b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,0.96
+granite3.3:2b,"Hola, ¿cómo estás?",,,,OK,1.50
+granite3.3:2b,"Hola, ¿cómo estás?",,,,OK,1.54
+granite3.3:2b,"Hola, ¿cómo estás?",,,,OK,1.02
+granite3.3:2b,Cuéntame un chiste,,capture_image,{},FAIL,1.38
+granite3.3:2b,Cuéntame un chiste,,capture_image,{},FAIL,1.44
+granite3.3:2b,Cuéntame un chiste,,capture_image,{},FAIL,1.41
+granite3.3:2b,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital of France""}",FAIL,1.60
+granite3.3:2b,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital of France""}",FAIL,1.39
+granite3.3:2b,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital of France""}",FAIL,1.33
+granite4:3b,¿Qué hora es?,get_time,get_time,{},OK,28.72
+granite4:3b,¿Qué hora es?,get_time,get_time,{},OK,1.85
+granite4:3b,¿Qué hora es?,get_time,get_time,{},OK,1.79
+granite4:3b,¿Qué hora tienes?,get_time,get_time,{},OK,2.01
+granite4:3b,¿Qué hora tienes?,get_time,get_time,{},OK,1.93
+granite4:3b,¿Qué hora tienes?,get_time,get_time,{},OK,1.91
+granite4:3b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,2.02
+granite4:3b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,1.68
+granite4:3b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,1.62
+granite4:3b,¿Cómo está la batería del computador?,battery_status,,La batería está al 47 por ciento y actualmente descargando.,FAIL,2.36
+granite4:3b,¿Cómo está la batería del computador?,battery_status,,La batería está al 47 por ciento y actualmente se descarga.,FAIL,2.23
+granite4:3b,¿Cómo está la batería del computador?,battery_status,,La batería está al 47 por ciento y actualmente descargando.,FAIL,2.72
+granite4:3b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,3.21
+granite4:3b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,2.30
+granite4:3b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,2.11
+granite4:3b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""**sqrt(1750)""}",OK,2.83
+granite4:3b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,2.27
+granite4:3b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""**2*1750""}",OK,2.29
+granite4:3b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,2.85
+granite4:3b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,2.44
+granite4:3b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,2.38
+granite4:3b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""today's news""}",OK,2.49
+granite4:3b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""today's news""}",OK,2.11
+granite4:3b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""news""}",OK,2.03
+granite4:3b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.86
+granite4:3b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.68
+granite4:3b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.59
+granite4:3b,Apaga el computador,system_shutdown,system_shutdown,{},OK,2.28
+granite4:3b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.60
+granite4:3b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.59
+granite4:3b,Reinicia el computador,system_reboot,system_reboot,{},OK,2.30
+granite4:3b,Reinicia el computador,system_reboot,system_reboot,{},OK,1.94
+granite4:3b,Reinicia el computador,system_reboot,system_reboot,{},OK,3.06
+granite4:3b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,2.30
+granite4:3b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,1.83
+granite4:3b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,1.75
+granite4:3b,"Hola, ¿cómo estás?",,,"Hola! Estoy bien, gracias por preguntar. ¿En qué puedo ayudarte hoy?",OK,2.49
+granite4:3b,"Hola, ¿cómo estás?",,,"¡Hola! Estoy bien, gracias. ¿Cómo puedo ayudarte hoy?",OK,1.82
+granite4:3b,"Hola, ¿cómo estás?",,,"Estoy bien, gracias por preguntar. ¿Cómo puedo ayudarte hoy?",OK,2.03
+granite4:3b,Cuéntame un chiste,,,"Claro, aquí tienes uno: ¿Por qué los números nunca pueden jugar al fútbol? Porqu",OK,3.86
+granite4:3b,Cuéntame un chiste,,,Claro que sí! ¿Por qué el computador nunca puede jugar al ajedrez? Porque siempr,OK,4.58
+granite4:3b,Cuéntame un chiste,,,Claro! ¿Por qué el computador nunca puede adivinar números? Porque siempre piens,OK,3.22
+granite4:3b,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital of France""}",FAIL,2.45
+granite4:3b,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital of France""}",FAIL,2.16
+granite4:3b,¿Cuál es la capital de Francia?,,search_web,"{""query"": ""capital of France""}",FAIL,2.12
+granite4.1:3b,¿Qué hora es?,get_time,get_time,{},OK,30.93
+granite4.1:3b,¿Qué hora es?,get_time,get_time,{},OK,1.55
+granite4.1:3b,¿Qué hora es?,get_time,get_time,{},OK,1.71
+granite4.1:3b,¿Qué hora tienes?,get_time,get_time,{},OK,1.81
+granite4.1:3b,¿Qué hora tienes?,get_time,get_time,{},OK,1.56
+granite4.1:3b,¿Qué hora tienes?,get_time,get_time,{},OK,1.53
+granite4.1:3b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,2.03
+granite4.1:3b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,1.68
+granite4.1:3b,¿Cuánta batería te queda?,battery_status,battery_status,{},OK,1.54
+granite4.1:3b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,1.88
+granite4.1:3b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,1.58
+granite4.1:3b,¿Cómo está la batería del computador?,battery_status,battery_status,{},OK,1.51
+granite4.1:3b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,2.24
+granite4.1:3b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,1.90
+granite4.1:3b,¿Cuánto es 45 por 12?,calculate,calculate,"{""expression"": ""45*12""}",OK,1.93
+granite4.1:3b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,2.51
+granite4.1:3b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,2.11
+granite4.1:3b,Calcula la raíz cuadrada de 1750,calculate,calculate,"{""expression"": ""sqrt(1750)""}",OK,2.12
+granite4.1:3b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,2.55
+granite4.1:3b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,2.33
+granite4.1:3b,Busca en internet quién es Baltazar Renfrew,search_web,search_web,"{""query"": ""Baltazar Renfrew""}",OK,2.31
+granite4.1:3b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""today's news""}",OK,2.42
+granite4.1:3b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""today's news""}",OK,2.06
+granite4.1:3b,¿Qué está pasando hoy en las noticias?,search_web,search_web,"{""query"": ""today's news""}",OK,2.04
+granite4.1:3b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.76
+granite4.1:3b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.55
+granite4.1:3b,¿Qué ves ahorita?,capture_image,capture_image,{},OK,1.53
+granite4.1:3b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.76
+granite4.1:3b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.49
+granite4.1:3b,Apaga el computador,system_shutdown,system_shutdown,{},OK,1.52
+granite4.1:3b,Reinicia el computador,system_reboot,system_reboot,{},OK,1.83
+granite4.1:3b,Reinicia el computador,system_reboot,system_reboot,{},OK,1.59
+granite4.1:3b,Reinicia el computador,system_reboot,system_reboot,{},OK,1.59
+granite4.1:3b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,1.80
+granite4.1:3b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,1.51
+granite4.1:3b,Pon el computador a dormir,system_suspend,system_suspend,{},OK,1.52
+granite4.1:3b,"Hola, ¿cómo estás?",,,"Estoy bien, gracias! ¿Cómo puedo ayudarte hoy?",OK,1.71
+granite4.1:3b,"Hola, ¿cómo estás?",,,"Estoy bien, gracias! ¿Cómo puedo ayudarte hoy?",OK,1.42
+granite4.1:3b,"Hola, ¿cómo estás?",,,"Estoy bien, gracias! ¿Cómo puedo ayudarte hoy?",OK,1.34
+granite4.1:3b,Cuéntame un chiste,,,"¿Por qué los números nunca se ríen?  
+Porque tienen “punto cero” de sentido comi",OK,2.91
+granite4.1:3b,Cuéntame un chiste,,,"¿Por qué los árboles son excelentes matemáticos?  
+Porque tienen raíces!",OK,2.28
+granite4.1:3b,Cuéntame un chiste,,,"¿Por qué los números nunca se engañan?  
+Porque tienen mucho valor de confianza…",OK,2.80
+granite4.1:3b,¿Cuál es la capital de Francia?,,,La capital de Francia es París.,OK,1.39
+granite4.1:3b,¿Cuál es la capital de Francia?,,,La capital de Francia es París.,OK,1.00
+granite4.1:3b,¿Cuál es la capital de Francia?,,,La capital de Francia es París.,OK,1.00
