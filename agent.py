@@ -548,7 +548,7 @@ class BotGUI:
         # parameter. Starts True (optimistic); chat_and_respond flips it to
         # False the first time Ollama rejects the call with "does not
         # support tools", so a misconfigured/incompatible model degrades to
-        # plain chat instead of throwing "Brain Freeze!" on every turn.
+        # plain chat instead of throwing "¡Se colgó el cerebro!" on every turn.
         self.tools_supported = True
 
         # --- WAKE WORD INITIALIZATION ---
@@ -696,7 +696,7 @@ class BotGUI:
             if self.current_audio_process:
                 try: self.current_audio_process.terminate()
                 except: pass
-            self.set_state(BotStates.IDLE, "Interrupted.")
+            self.set_state(BotStates.IDLE, "Interrumpido.")
 
     def load_animations(self):
         base_path = "faces"
@@ -856,11 +856,24 @@ class BotGUI:
             return "INVALID_ACTION"
 
         if action == "get_time":
-            now = datetime.datetime.now().strftime("%I:%M %p")
+            now_dt = datetime.datetime.now()
+            # strftime("%p") da "AM"/"PM" en inglés; un TTS en español lo
+            # lee letra por letra ("pe eme") en vez de sonar natural. Se
+            # arma la frase a mano con una franja horaria en español.
+            hour_12 = now_dt.strftime("%I:%M").lstrip("0") or "12:00"
+            hour_24 = now_dt.hour
+            if 0 <= hour_24 < 6:
+                franja = "de la madrugada"
+            elif 6 <= hour_24 < 12:
+                franja = "de la mañana"
+            elif 12 <= hour_24 < 19:
+                franja = "de la tarde"
+            else:
+                franja = "de la noche"
             # Deterministic fact, no LLM needed to phrase it — same
             # short-circuit pattern as battery_status and calculate, so it
             # doesn't cost an extra LLM round trip or a chance to hallucinate.
-            return f"TIME_RESULT::The current time is {now}."
+            return f"TIME_RESULT::Son las {hour_12} {franja}."
         
         elif action == "search_web":
             print(f"Searching web for: {value}...", flush=True)
@@ -918,7 +931,7 @@ class BotGUI:
                 # repeating the raw expression came out as garbled gaps
                 # like "122  895  109190". A plain sentence survives that
                 # cleanup intact.
-                return f"CALC_RESULT::That equals {result}."
+                return f"CALC_RESULT::Eso es igual a {result}."
             except Exception as e:
                 return f"CALC_ERROR::{e}"
 
@@ -939,7 +952,7 @@ class BotGUI:
         try:
             bat_dirs = sorted(d for d in os.listdir(base) if d.upper().startswith("BAT"))
             if not bat_dirs:
-                return "BATTERY_RESULT::I couldn't find a battery on this system."
+                return "BATTERY_RESULT::No encontré ninguna batería en este sistema."
             bat = bat_dirs[0]
             with open(os.path.join(base, bat, "capacity")) as f:
                 capacity = f.read().strip()
@@ -949,9 +962,19 @@ class BotGUI:
                     status = f.read().strip().lower()
             except Exception:
                 pass
-            return f"BATTERY_RESULT::Battery is at {capacity} percent, currently {status}."
+            # El sysfs de Linux devuelve el status en inglés (charging,
+            # discharging, full, not charging); lo traducimos para que no
+            # se cuele una palabra en inglés en medio de la frase hablada.
+            status_es = {
+                "charging": "cargando",
+                "discharging": "descargando",
+                "full": "llena",
+                "not charging": "sin cargar",
+                "unknown": "estado desconocido",
+            }.get(status, status)
+            return f"BATTERY_RESULT::La batería está al {capacity} por ciento, actualmente {status_es}."
         except Exception as e:
-            return f"BATTERY_RESULT::I couldn't read the battery status: {e}"
+            return f"BATTERY_RESULT::No pude leer el estado de la batería: {e}"
 
     def _execute_system_action(self, action_name):
         """Runs a previously-confirmed destructive system action."""
@@ -961,13 +984,13 @@ class BotGUI:
             "system_suspend": ["systemctl", "suspend"],
         }
         messages = {
-            "system_shutdown": "Okay, shutting down now. Bye!",
-            "system_reboot": "Okay, restarting now.",
-            "system_suspend": "Okay, going to sleep now.",
+            "system_shutdown": "Listo, apagando el sistema. ¡Chao!",
+            "system_reboot": "Listo, reiniciando ahora.",
+            "system_suspend": "Listo, entrando en suspensión.",
         }
         cmd = commands.get(action_name)
         if not cmd:
-            return "I don't recognize that system action."
+            return "No reconozco esa acción del sistema."
         try:
             subprocess.Popen(cmd)
             return messages[action_name]
@@ -1022,10 +1045,10 @@ class BotGUI:
                     break
                 if self.interrupted.is_set():
                     self.interrupted.clear()
-                    self.set_state(BotStates.IDLE, "Resetting...")
+                    self.set_state(BotStates.IDLE, "Reiniciando...")
                     continue
 
-                self.set_state(BotStates.LISTENING, "I'm listening!")
+                self.set_state(BotStates.LISTENING, "¡Te escucho!")
                 
                 audio_file = None
                 if trigger_source == "PTT":
@@ -1034,12 +1057,12 @@ class BotGUI:
                     audio_file = self.record_voice_adaptive()
                 
                 if not audio_file: 
-                    self.set_state(BotStates.IDLE, "Heard nothing.")
+                    self.set_state(BotStates.IDLE, "No escuché nada.")
                     continue
                 
                 user_text = self.transcribe_audio(audio_file)
                 if not user_text or self._is_junk_transcription(user_text):
-                    self.set_state(BotStates.IDLE, "Didn't catch that.")
+                    self.set_state(BotStates.IDLE, "No entendí eso.")
                     continue
                 
                 self.append_to_text(f"YOU: {user_text}")
@@ -1048,10 +1071,10 @@ class BotGUI:
                     
         except Exception as e:
             traceback.print_exc()
-            self.set_state(BotStates.ERROR, f"Fatal Error: {str(e)[:40]}")
+            self.set_state(BotStates.ERROR, f"Error fatal: {str(e)[:40]}")
 
     def warm_up_logic(self):
-        self.set_state(BotStates.WARMUP, "Warming up brains...")
+        self.set_state(BotStates.WARMUP, "Calentando el cerebro...")
         try:
             ollama.generate(model=TEXT_MODEL, prompt="", keep_alive=-1)
         except Exception as e:
@@ -1060,7 +1083,7 @@ class BotGUI:
         print("Models loaded.", flush=True)
 
     def detect_wake_word_or_ptt(self):
-        self.set_state(BotStates.IDLE, "Waiting...")
+        self.set_state(BotStates.IDLE, "Esperando...")
         self.ptt_event.clear()
         
         if self.oww_model: self.oww_model.reset()
@@ -1386,7 +1409,7 @@ class BotGUI:
         return None
 
     def capture_image(self):
-        self.set_state(BotStates.CAPTURING, "Watching...")
+        self.set_state(BotStates.CAPTURING, "Observando...")
         try:
             frame = self._grab_camera_frame()
             if frame is None:
@@ -1411,7 +1434,7 @@ class BotGUI:
         queue. Small helper so every response branch below doesn't repeat
         the same four lines."""
         self.thinking_sound_active.clear()
-        self.set_state(BotStates.SPEAKING, "Speaking...", cam_path=img_path)
+        self.set_state(BotStates.SPEAKING, "Hablando...", cam_path=img_path)
         self.append_to_text("BOT: ", newline=False)
         self.append_to_text(text, newline=True)
         with self.tts_queue_lock:
@@ -1426,27 +1449,32 @@ class BotGUI:
             action_name = self.pending_confirmation
             self.pending_confirmation = None
             if time.time() > self.pending_confirmation_expiry:
-                fallback_text = "That confirmation timed out, so I didn't do anything."
+                fallback_text = "Se venció el tiempo para confirmar, así que no hice nada."
             elif self._is_affirmative(text):
                 fallback_text = self._execute_system_action(action_name)
             else:
-                fallback_text = "Okay, cancelled."
+                fallback_text = "Listo, cancelado."
             self._say(fallback_text, img_path=img_path)
             self.wait_for_tts()
-            self.set_state(BotStates.IDLE, "Ready")
+            self.set_state(BotStates.IDLE, "Listo")
             return
 
-        if "forget everything" in text.lower() or "reset memory" in text.lower():
+        _reset_memory_phrases = (
+            "forget everything", "reset memory",
+            "olvida todo", "olvida la memoria", "borra la memoria",
+            "borra todo", "reinicia la memoria",
+        )
+        if any(p in text.lower() for p in _reset_memory_phrases):
             self.session_memory = []
             self.permanent_memory = [{"role": "system", "content": SYSTEM_PROMPT}]
             self.save_chat_history()
             with self.tts_queue_lock: 
-                self.tts_queue.append("Okay. Memory wiped.")
-            self.set_state(BotStates.IDLE, "Memory Wiped")
+                self.tts_queue.append("Listo, borré la memoria.")
+            self.set_state(BotStates.IDLE, "Memoria borrada")
             return
 
         model_to_use = VISION_MODEL if img_path else TEXT_MODEL
-        self.set_state(BotStates.THINKING, "Thinking...", cam_path=img_path)
+        self.set_state(BotStates.THINKING, "Pensando...", cam_path=img_path)
 
         self.thinking_sound_active.set()
         threading.Thread(target=self._run_thinking_sound_loop, daemon=True).start()
@@ -1465,7 +1493,7 @@ class BotGUI:
                     full_response_buffer += content
                     self.thinking_sound_active.clear()
                     if self.current_state != BotStates.SPEAKING:
-                        self.set_state(BotStates.SPEAKING, "Speaking...", cam_path=img_path)
+                        self.set_state(BotStates.SPEAKING, "Hablando...", cam_path=img_path)
                         self.append_to_text("BOT: ", newline=False)
                     self._stream_to_text(content)
                     sentence_buffer += content
@@ -1477,7 +1505,7 @@ class BotGUI:
                 self.append_to_text("")
                 self.session_memory.append({"role": "assistant", "content": full_response_buffer})
                 self.wait_for_tts()
-                self.set_state(BotStates.IDLE, "Ready")
+                self.set_state(BotStates.IDLE, "Listo")
                 return
 
             # --- TEXT PATH: native tool-calling (tools=TOOLS). ---
@@ -1550,7 +1578,7 @@ class BotGUI:
                 # Plain conversational reply, no tool needed.
                 self._say(reply.get('content', '') or "...", img_path=img_path)
                 self.wait_for_tts()
-                self.set_state(BotStates.IDLE, "Ready")
+                self.set_state(BotStates.IDLE, "Listo")
                 return
 
             # Only act on the first tool call — one action per turn. Small
@@ -1577,29 +1605,29 @@ class BotGUI:
                 if new_img_path:
                     self.chat_and_respond(text, img_path=new_img_path)
                     return
-                self._say("I couldn't take a photo.", img_path=img_path, log_as_assistant=False)
+                self._say("No pude tomar la foto.", img_path=img_path, log_as_assistant=False)
 
             elif tool_result == "INVALID_ACTION":
-                self._say("I am not sure how to do that.", img_path=img_path, log_as_assistant=False)
+                self._say("No estoy seguro de cómo hacer eso.", img_path=img_path, log_as_assistant=False)
 
             elif tool_result == "SEARCH_EMPTY":
-                self._say("I searched, but I couldn't find anything about that.", img_path=img_path, log_as_assistant=False)
+                self._say("Busqué, pero no encontré nada sobre eso.", img_path=img_path, log_as_assistant=False)
 
             elif tool_result == "SEARCH_ERROR":
-                self._say("I cannot reach the internet right now.", img_path=img_path, log_as_assistant=False)
+                self._say("No puedo conectarme a internet en este momento.", img_path=img_path, log_as_assistant=False)
 
             elif tool_result and tool_result.startswith("CONFIRM_ACTION::"):
                 action_name = tool_result.split("::", 1)[1]
                 friendly = {
-                    "system_shutdown": "shut down the computer",
-                    "system_reboot": "restart the computer",
-                    "system_suspend": "put the computer to sleep",
+                    "system_shutdown": "apague el computador",
+                    "system_reboot": "reinicie el computador",
+                    "system_suspend": "ponga el computador a dormir",
                 }.get(action_name, action_name)
                 self.pending_confirmation = action_name
                 self.pending_confirmation_expiry = time.time() + self.CONFIRMATION_WINDOW_SECONDS
                 self._say(
-                    f"Are you sure you want to {friendly}? Say yes within "
-                    f"{self.CONFIRMATION_WINDOW_SECONDS} seconds to confirm.",
+                    f"¿Seguro que quieres que {friendly}? Di 'sí' dentro de "
+                    f"{self.CONFIRMATION_WINDOW_SECONDS} segundos para confirmar.",
                     img_path=img_path, log_as_assistant=False,
                 )
 
@@ -1609,7 +1637,7 @@ class BotGUI:
                 self._say(tool_result.split("::", 1)[1], img_path=img_path, log_as_assistant=False)
 
             elif tool_result and tool_result.startswith("CALC_ERROR::"):
-                self._say("I couldn't calculate that, sorry.", img_path=img_path, log_as_assistant=False)
+                self._say("No pude calcular eso, perdón.", img_path=img_path, log_as_assistant=False)
 
             elif tool_result:
                 # e.g. search_web's raw SEARCH RESULTS block — needs a
@@ -1626,7 +1654,7 @@ class BotGUI:
                     {"role": "user", "content": f"RESULT:\n{tool_result}\n\nUser Question: {text}"}
                 ]
 
-                self.set_state(BotStates.THINKING, "Reading...")
+                self.set_state(BotStates.THINKING, "Leyendo...")
                 self.thinking_sound_active.set()
 
                 final_resp = ollama.chat(model=model_to_use, messages=summary_prompt, stream=False, options=OLLAMA_OPTIONS_CHAT)
@@ -1634,11 +1662,11 @@ class BotGUI:
                 self._say(final_text, img_path=img_path)
 
             self.wait_for_tts()
-            self.set_state(BotStates.IDLE, "Ready")
+            self.set_state(BotStates.IDLE, "Listo")
 
         except Exception as e:
             print(f"LLM Error: {e}")
-            self.set_state(BotStates.ERROR, "Brain Freeze!")
+            self.set_state(BotStates.ERROR, "¡Se colgó el cerebro!")
 
     def wait_for_tts(self):
         while self.tts_queue or self.tts_active.is_set():
